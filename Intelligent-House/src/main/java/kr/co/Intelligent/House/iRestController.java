@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class iRestController {
-    @RequestMapping("/")
+    @RequestMapping("/!!!!")
     public String Map(){
         return "Hello";
     }
