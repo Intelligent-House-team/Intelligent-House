@@ -1,0 +1,55 @@
+<!-- header.html -->
+<style>
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #222;
+    color: white;
+    padding: 10px 20px;
+    flex-wrap: wrap;
+  }
+
+  #site-title {
+    font-size: 1.5em;
+    margin: 5px 0;
+  }
+
+  nav {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+  }
+
+  /* 반응형: 작은 화면에서는 중앙 정렬 */
+  @media (max-width: 600px) {
+    header {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    nav {
+      justify-content: center;
+    }
+
+    #site-title {
+      font-size: 1.2em;
+    }
+  }
+</style>
+
+<header>
+  <h3 id="site-title">로딩 중...</h3>
+  <nav>
+    <a href="#">홈</a>
+    <a href="#">지도</a>
+    <a href="#">문의</a>
+  </nav>
+</header>

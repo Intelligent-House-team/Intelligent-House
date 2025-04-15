@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String Main() {
-        return "Main";  // templates/Main.html 을 렌더링
+        return "index";  // templates/Main.html 을 렌더링
     }
 }

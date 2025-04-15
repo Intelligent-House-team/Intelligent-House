@@ -5,12 +5,20 @@
     <title>Title</title>
 </head>
 <body>
-<h3>이것은 카카오 맵입니까?</h3>
+
+<!-- <h3>이 위치에 제목</h3> → 제거됨 -->
+
+<!-- 지도 영역 -->
 <div id="map" style="width:100vw;height:100vh;"></div>
+
 </body>
+
+<!-- 순서 중요: 헤더 먼저 불러오고 나머지 실행 -->
+<script src="load-header.js"></script>
+
+<!-- 지도 관련 스크립트들 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e233d74bf94ac6bba7c8506e320cfa7"></script>
 <script src="app.js"></script>
-<!-- JS 기능별 연결 -->
 <script src="/marker.js"></script>
 <script src="/geolocation.js"></script>
 <script src="/search.js"></script>
