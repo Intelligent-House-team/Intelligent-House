@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test now Side.html</title>
+    <link rel="stylesheet" th:href="@{/css/side.css}">
+</head>
+<body>
+
+<!-- <h3>이 위치에 제목</h3> → 제거됨 -->
+
+<!-- 지도 영역 -->
+<div id="map" style="width:100vw;height:100vh;"></div>
+
+<!-- 사이드바 영역 -->
+<div id="sidebar" class="sidebar">
+    <h2>사이드바</h2>
+    <ul>
+        <li><a href="#">메뉴 1</a></li>
+        <li><a href="#">메뉴 2</a></li>
+        <li><a href="#">메뉴 3</a></li>
+    </ul>
+</div>
+<div id="overlay" class="overlay"></div>
+
+</body>
+
+<!-- 순서 중요: 헤더 먼저 불러오고 나머지 실행 -->
+<script src="load-header.js"></script>
+<script src="side.js"></script>
+
+<!-- 지도 관련 스크립트들 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e233d74bf94ac6bba7c8506e320cfa7"></script>
+<script src="app.js"></script>
+<script src="/marker.js"></script>
+<script src="/geolocation.js"></script>
+<script src="/search.js"></script>
+<script src="/click-coord.js"></script>
+</html>
