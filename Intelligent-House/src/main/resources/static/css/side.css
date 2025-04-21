@@ -9,7 +9,7 @@
     background-color: #111;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+    //padding-top: 60px;
     text-align: center;
     color: white;
 }
@@ -65,4 +65,96 @@
 
 .overlay.open {
     display: block; /* 표시 */
+}
+
+/* 고정형 사이드바 스타일 */
+.fixed-sidebar {
+    height: 100vh;
+    width: 20vw;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #333;
+    overflow-y: auto;
+    padding-top: 60px;
+    color: white;
+    z-index: 3; /* 기존 사이드바보다 위에 둘 수 있음 */
+}
+
+.fixed-sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.fixed-sidebar li a {
+    display: block;
+    padding: 10px 20px;
+    color: #ccc;
+    text-decoration: none;
+}
+
+.fixed-sidebar li a:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+/* 토글 버튼 스타일 */
+/* 고정형 사이드바 밖으로 밀린 토글 버튼 */
+#toggle-sidebar-button {
+  position: fixed; /* fixed로 설정하여 항상 화면에 고정되도록 */
+  top: 50%; /* 수직 중앙 정렬 */
+  left: -60px; /* 화면 밖으로 밀기 (사이드바 밖으로 이동) */
+  width: 50px;
+  height: 100px;
+  transform: translateY(-50%); /* 수직 중앙 맞추기 */
+  background-color: #444;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 100; /* 버튼을 다른 요소들보다 위에 위치시킴 */
+}
+
+#toggle-sidebar-button:hover {
+  background-color: #000000;
+}
+
+/* 기존 사이드바 반응형 추가 */
+@media (max-width: 768px) {
+    .sidebar.open {
+        width: 60vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar.open {
+        width: 100vw;
+    }
+}
+
+/* 반응형: 화면이 768px 이하일 때 */
+@media (max-width: 768px) {
+    .fixed-sidebar {
+        width: 60vw; /* 화면이 작으면 고정 사이드바 너비 늘리기 */
+    }
+    #map {
+        margin-right: 60vw; /* 지도도 그만큼 밀기 */
+        width: 40vw;
+    }
+}
+
+/* 반응형: 화면이 480px 이하일 때 (모바일 사이즈) */
+@media (max-width: 480px) {
+    .fixed-sidebar {
+        width: 100vw;
+        height: 30vh;
+        top: auto;
+        bottom: 0;
+        right: 0;
+    }
+    #map {
+        margin: 0;
+        width: 100vw;
+        height: 70vh;
+    }
 }
