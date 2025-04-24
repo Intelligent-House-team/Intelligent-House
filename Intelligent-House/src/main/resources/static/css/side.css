@@ -69,8 +69,9 @@
 
 /* 고정형 사이드바 스타일 */
 .fixed-sidebar {
+    --sidebar-width: 20vw;      /* 기본 너비 */
+    width: var(--sidebar-width);
     height: 100vh;
-    width: 20vw;
     position: fixed;
     top: 0;
     right: 0;
@@ -101,18 +102,18 @@
 /* 토글 버튼 스타일 */
 /* 고정형 사이드바 밖으로 밀린 토글 버튼 */
 #toggle-sidebar-button {
-  position: fixed; /* fixed로 설정하여 항상 화면에 고정되도록 */
-  top: 50%; /* 수직 중앙 정렬 */
-  left: -60px; /* 화면 밖으로 밀기 (사이드바 밖으로 이동) */
+  position: fixed;
+  top: 50%;
+  right: var(--sidebar-width);
+  transform: translateY(-50%);
   width: 50px;
   height: 100px;
-  transform: translateY(-50%); /* 수직 중앙 맞추기 */
   background-color: #444;
   color: white;
   border: none;
   cursor: pointer;
   font-size: 24px;
-  z-index: 100; /* 버튼을 다른 요소들보다 위에 위치시킴 */
+  z-index: 2; /* 버튼을 다른 요소들보다 위에 위치시킴 */
 }
 
 #toggle-sidebar-button:hover {
