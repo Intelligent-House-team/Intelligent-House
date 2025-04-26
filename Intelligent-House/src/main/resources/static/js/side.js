@@ -1,40 +1,48 @@
-fetch('/sidebar.html')
+fetch('/hiddenSidebar.html')
   .then(res => res.text())
   .then(html => {
-    document.body.insertAdjacentHTML('beforeend', html); // body 맨 마지막에 삽입
+    document.body.insertAdjacentHTML('beforeend', html);
 
-    // sidebar.html 이 body에 삽입된 이후에 실행!
     const sidebarButton = document.getElementById('sidebarButton');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
 
     sidebarButton.addEventListener('click', function() {
-        sidebar.classList.add('open');
-        overlay.classList.add('open');
+      sidebar.classList.add('open');
+      overlay.classList.add('open');
     });
 
     overlay.addEventListener('click', function() {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('open');
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
     });
 
-    // 고정형 사이드바 관련
+    // 고정형 사이드바
     const fixedSidebar = document.getElementById('fixed-sidebar');
-        const toggleButton = document.getElementById('toggle-sidebar-button');
-        const closeFixedSidebarButton = document.getElementById('closeFixedSidebarButton');
+    const toggleButton = document.getElementById('fixed-sidebar-button');
+    let isFixedSidebarClose = true;
 
-        let isFixedSidebarOpen = true;
-
-        toggleButton.addEventListener('click', () => {
-          if (isFixedSidebarOpen) {
-            fixedSidebar.style.right = '-300px'; // 숨김
+    toggleButton.addEventListener('click', () => {
+          if (isFixedSidebarClose) {
+            // 열기
+            fixedSidebar.classList.remove('closed');
+            fixedSidebar.classList.add('open');
           } else {
-            fixedSidebar.style.right = '0';
+            // 닫기
+            fixedSidebar.classList.remove('open');
+            fixedSidebar.classList.add('closed');
           }
-          isFixedSidebarOpen = !isFixedSidebarOpen;
+          isFixedSidebarClose = !isFixedSidebarClose;
         });
 
-        closeFixedSidebarButton.addEventListener('click', function() {
-            fixedSidebar.style.display = 'none';
-        });
+    // 🔥 추가: 페이지 처음 로딩할 때 사이드바 상태 보고 버튼 클래스 설정
+        if (fixedSidebar.classList.contains('open')) {
+          toggleButton.classList.add('open');
+          toggleButton.classList.remove('closed');
+          isFixedSidebarClose = false; // 상태도 맞춰줌
+        } else {
+          toggleButton.classList.add('closed');
+          toggleButton.classList.remove('open');
+          isFixedSidebarClose = true;
+        }
   });

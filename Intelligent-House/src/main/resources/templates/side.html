@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+    }
+</style>
+
 <head>
     <meta charset="UTF-8">
     <title>Test now Side.html</title>
-    <link rel="stylesheet" href="/css/side.css">
 </head>
 <body>
-<div id="fixed-sidebar" class="fixed-sidebar">
+<div id="fixed-sidebar" class="fixed-sidebar closed">
     <h2>고정형 사이드바</h2>
     <ul>
         <li><a href="#">고정 메뉴 1</a></li>
         <li><a href="#">고정 메뉴 2</a></li>
         <li><a href="#">고정 메뉴 3</a></li>
     </ul>
-    <button id="toggle-sidebar-button">≡</button>
 </div>
+<button id="fixed-sidebar-button" class="fixed-sidebar-button">≡</button>
 <!-- 지도 영역 -->
 <div id="map" style="width: 100vw; height: 100vh;"></div> <!-- 사이드바 고려해서 너비 조정 -->
 

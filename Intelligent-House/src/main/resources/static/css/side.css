@@ -1,111 +1,118 @@
-/* 사이드바 스타일 */
+:root {
+  --fixed-sidebar-width: 20vw;
+
+}
+
+/* 히든 사이드바 스타일 */
 .sidebar {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 2; /* 오버레이보다 위에 표시 */
-    top: 0;
-    right: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    //padding-top: 60px;
-    text-align: center;
-    color: white;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  text-align: center;
+  color: white;
+}
+.sidebar.open {
+
+  width: 250px;/* 사이드바 열릴 때 */
 }
 
 .sidebar a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
 }
-
 .sidebar a:hover {
-    color: #f1f1f1;
-}
 
+  color: #f1f1f1;
+}
 .sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
-#sidebarButton {
-    font-size: 2em; /* 글자 크기를 2배로 키움 (em 단위는 부모 요소의 글꼴 크기에 비례) */
-    color: white; /* 글자 색을 흰색으로 변경 */
-    background-color: transparent; /* 배경색을 투명하게 설정 */
-    border: none; /* 테두리 제거 */
-    cursor: pointer; /* 마우스 커서를 손가락 모양으로 변경하여 클릭 가능함을 나타냄 */
-    padding: 10px; /* 버튼 주변에 여백 추가 */
-    display: grid; /* Grid 컨테이너로 설정 */
-    place-items: center; /* 가로 및 세로축 중앙 정렬 */
+  list-style-type: none;
+  padding: 0;
 }
 
+#sidebarButton {
+  font-size: 2em;
+  color: white;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  display: grid;
+  place-items: center;
+}
 #sidebarButton:hover {
-    opacity: 0.8; /* 마우스 호버 시 투명도를 약간 낮춰 시각적 피드백 제공 */
+
+  opacity: 0.8;
 }
 
 /* 오버레이 스타일 */
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정 */
-    z-index: 1; /* 사이드바 아래에 표시 */
-    display: none; /* 숨김 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  display: none;
 }
-
-/* 사이드바가 열릴 때 */
-.sidebar.open {
-    width: 250px; /* 원하는 너비 */
-}
-
 .overlay.open {
-    display: block; /* 표시 */
+
+  display: block;
 }
 
 /* 고정형 사이드바 스타일 */
 .fixed-sidebar {
-    --sidebar-width: 20vw;      /* 기본 너비 */
-    width: var(--sidebar-width);
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    right: 0;
-    background-color: #333;
-    overflow-y: auto;
-    padding-top: 60px;
-    color: white;
-    z-index: 3; /* 기존 사이드바보다 위에 둘 수 있음 */
+  width: var(--fixed-sidebar-width);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #333;
+  overflow-y: auto;
+  padding-top: 60px;
+  color: white;
+  transition: transform 0.3s ease;
+}
+.fixed-sidebar.open {
+
+  transform: translateX(0%);
+}
+.fixed-sidebar.closed {
+
+  transform: translateX(100%);
 }
 
 .fixed-sidebar ul {
-    list-style-type: none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
-
 .fixed-sidebar li a {
-    display: block;
-    padding: 10px 20px;
-    color: #ccc;
-    text-decoration: none;
+  display: block;
+  padding: 10px 20px;
+  color: #ccc;
+  text-decoration: none;
 }
-
 .fixed-sidebar li a:hover {
-    background-color: #444;
-    color: #fff;
+  background-color: #444;
+  color: #fff;
 }
 
-/* 토글 버튼 스타일 */
-/* 고정형 사이드바 밖으로 밀린 토글 버튼 */
-#toggle-sidebar-button {
+/* 고정 사이드바 토글 버튼 */
+#fixed-sidebar-button {
   position: fixed;
   top: 50%;
-  right: var(--sidebar-width);
-  transform: translateY(-50%);
+  right: 0;
+  transform: translateY(-50%) translateX(0);
   width: 50px;
   height: 100px;
   background-color: #444;
@@ -113,49 +120,50 @@
   border: none;
   cursor: pointer;
   font-size: 24px;
-  z-index: 2; /* 버튼을 다른 요소들보다 위에 위치시킴 */
+  z-index: 2;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+/* 사이드바 열릴 때 버튼도 따라 움직임 */
+.fixed-sidebar.open + #fixed-sidebar-button {
+
+  transform: translateY(-50%) translateX(calc(-1 * var(--fixed-sidebar-width)));
 }
 
-#toggle-sidebar-button:hover {
+#fixed-sidebar-button {
+/* 사이드바 닫히면 원래 자리 */
+  transform: translateY(-50%) translateX(0);
+}
+#fixed-sidebar-button:hover {
+
   background-color: #000000;
 }
 
-/* 기존 사이드바 반응형 추가 */
+/* 반응형 대응 */
 @media (max-width: 768px) {
-    .sidebar.open {
-        width: 60vw;
-    }
-}
+  :root {
+    --fixed-sidebar-width: 40vw;
+  }
 
+  .sidebar.open {
+    width: 40vw;
+  }
+
+  #map {
+    margin-right: 40vw;
+    width: 60vw;
+  }
+}
 @media (max-width: 480px) {
-    .sidebar.open {
-        width: 100vw;
-    }
-}
+  :root {
+    --fixed-sidebar-width: 60vw;
+  }
 
-/* 반응형: 화면이 768px 이하일 때 */
-@media (max-width: 768px) {
-    .fixed-sidebar {
-        width: 60vw; /* 화면이 작으면 고정 사이드바 너비 늘리기 */
-    }
-    #map {
-        margin-right: 60vw; /* 지도도 그만큼 밀기 */
-        width: 40vw;
-    }
-}
+  .sidebar.open {
+    width: 60vw;
+  }
 
-/* 반응형: 화면이 480px 이하일 때 (모바일 사이즈) */
-@media (max-width: 480px) {
-    .fixed-sidebar {
-        width: 100vw;
-        height: 30vh;
-        top: auto;
-        bottom: 0;
-        right: 0;
-    }
-    #map {
-        margin: 0;
-        width: 100vw;
-        height: 70vh;
-    }
+  #map {
+    margin-right: 60vw;
+    width: 40vw;
+  }
 }
