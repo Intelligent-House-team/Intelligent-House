@@ -1,4 +1,5 @@
-fetch('/hiddenSidebar.html')
+// 1. hiddenSidebar.html 불러오기
+fetch('/sidebar/hiddenSidebar.html')
   .then(res => res.text())
   .then(html => {
     document.body.insertAdjacentHTML('beforeend', html);
@@ -16,33 +17,34 @@ fetch('/hiddenSidebar.html')
       sidebar.classList.remove('open');
       overlay.classList.remove('open');
     });
+  });
 
-    // 고정형 사이드바
+// 2. fixedSidebar.html 불러오기
+fetch('/sidebar/fixedSidebar.html')
+  .then(res => res.text())
+  .then(html => {
+    document.body.insertAdjacentHTML('beforeend', html);
+
     const fixedSidebar = document.getElementById('fixed-sidebar');
     const toggleButton = document.getElementById('fixed-sidebar-button');
-    let isFixedSidebarClose = true;
+    let isFixedSidebarClose = true; // 기본은 닫힘 상태
+
+    // 첫 상태 맞추기
+    fixedSidebar.classList.add('closed');
+    toggleButton.classList.add('closed');
 
     toggleButton.addEventListener('click', () => {
-          if (isFixedSidebarClose) {
-            // 열기
-            fixedSidebar.classList.remove('closed');
-            fixedSidebar.classList.add('open');
-          } else {
-            // 닫기
-            fixedSidebar.classList.remove('open');
-            fixedSidebar.classList.add('closed');
-          }
-          isFixedSidebarClose = !isFixedSidebarClose;
-        });
-
-    // 🔥 추가: 페이지 처음 로딩할 때 사이드바 상태 보고 버튼 클래스 설정
-        if (fixedSidebar.classList.contains('open')) {
-          toggleButton.classList.add('open');
-          toggleButton.classList.remove('closed');
-          isFixedSidebarClose = false; // 상태도 맞춰줌
-        } else {
-          toggleButton.classList.add('closed');
-          toggleButton.classList.remove('open');
-          isFixedSidebarClose = true;
-        }
+      if (isFixedSidebarClose) {
+        fixedSidebar.classList.remove('closed');
+        fixedSidebar.classList.add('open');
+        toggleButton.classList.remove('closed');
+        toggleButton.classList.add('open');
+      } else {
+        fixedSidebar.classList.remove('open');
+        fixedSidebar.classList.add('closed');
+        toggleButton.classList.remove('open');
+        toggleButton.classList.add('closed');
+      }
+      isFixedSidebarClose = !isFixedSidebarClose;
+    });
   });

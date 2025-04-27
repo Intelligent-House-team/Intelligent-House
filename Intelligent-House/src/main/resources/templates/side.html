@@ -12,18 +12,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Test now Side.html</title>
+    <link rel="stylesheet" href="/css/side.css">
+    <!-- defer로 꼭 비동기 이건 스크립트를 비동기로 읽고, HTML 다 그린 다음에 스크립트를 실행 == "비동기 로딩 + DOM 다 그린 후 실행"-->
+    <script src="/js/side.js" defer></script>
 </head>
 <body>
-<div id="fixed-sidebar" class="fixed-sidebar closed">
-    <h2>고정형 사이드바</h2>
-    <ul>
-        <li><a href="#">고정 메뉴 1</a></li>
-        <li><a href="#">고정 메뉴 2</a></li>
-        <li><a href="#">고정 메뉴 3</a></li>
-    </ul>
-</div>
-<button id="fixed-sidebar-button" class="fixed-sidebar-button">≡</button>
 <!-- 지도 영역 -->
 <div id="map" style="width: 100vw; height: 100vh;"></div> <!-- 사이드바 고려해서 너비 조정 -->
 
@@ -31,7 +24,6 @@
 
 <!-- 순서 중요: 헤더 먼저 불러오고 나머지 실행 -->
 <script src="/js/load-header.js"></script>
-<script src="/js/side.js"></script>
 
 <!-- 지도 관련 스크립트들 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e233d74bf94ac6bba7c8506e320cfa7"></script>
