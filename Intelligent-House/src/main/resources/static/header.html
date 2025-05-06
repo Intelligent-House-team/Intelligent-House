@@ -53,7 +53,37 @@
       font-size: 1.2em;
     }
   }
+
+  #layoutGroup-View {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+}
+  .layout-button {
+    width: 10vw;
+    height: 5vh;
+    min-width: 60px;
+    min-height: 30px;
+}
+  .layout-button.selected {
+    border: 2px solid #007bff; /* 파란색 강조 */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* 약간의 그림자 */
+}
 </style>
+
+<!--
+.layout-button {
+    background: url('/img/default-icon.png') no-repeat center center;
+    background-size: contain;
+}
+
+.layout-button.selected {
+    background: url('/img/selected-icon.png') no-repeat center center;
+    background-size: contain;
+    background-color: #e0f0ff; /* 선택된 배경색 */
+}
+-->
 
 <header>
   <h3 id="site-title">로딩 중...</h3>
@@ -66,3 +96,8 @@
     -->
   </nav>
 </header>
+<!-- 버튼들을 묶는 틀 -->
+<div id="layoutGroup-View">
+  <button id="layout-MapView" class="layout-button selected" data-type="map">지도 뷰</button>
+  <button id="layout-SkyView" class="layout-button" data-type="sky">스카이 뷰</button>
+</div>
