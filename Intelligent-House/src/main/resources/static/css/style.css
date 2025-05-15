@@ -1,31 +1,24 @@
-body {
-    font-family: 'Pretendard', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-}
-
-header {
-    background-color: #333;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-}
-
-@media (max-width: 768px) {
-    header {
-        font-size: 1.2rem;
-    }
-
-    main {
-        padding: 1rem;
-    }
-}
-
 html, body {
   margin: 0;
   padding: 0;
-  overflow: hidden; /* 스크롤 자체를 막기 */
+  box-sizing: border-box;
+  overflow: hidden;
+  /* 필요하다면 기본 폰트 설정 등을 여기에 추가 */
+}
+
+/* 지도 영역 관련 스타일 (예시) */
+#map {
   width: 100vw;
   height: 100vh;
+  /* 기타 지도 관련 스타일 */
 }
+
+/* 사이드바 관련 스타일 (원래 side.css의 역할 유지) */
+/* #sidebar { ... } */
+/* .sidebar-item { ... } */
+/* ... 기타 사이드바 스타일 ... */
+
+/* 공통 레이아웃 스타일 (선택 사항) */
+/* .container { ... } */
+/* .row { ... } */
+/* ... 기타 공통 레이아웃 스타일 ... */

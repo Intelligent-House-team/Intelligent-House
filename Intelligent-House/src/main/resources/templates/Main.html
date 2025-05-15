@@ -1,33 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="UTF-8">
-
-<style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      width: 100vw;
-      height: 100vh;
-    }
-
-</style>
-    <head>
-        <link rel="stylesheet" href="/css/side.css">
-        <script src="/js/side.js" defer></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Intelligent House</title>
+    <link rel="stylesheet" href="/css/side.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/side.js" defer></script>
+</head>
 <body>
-<!-- <h3>이 위치에 제목</h3> → 제거됨 -->
+
 
 <!-- 지도 영역 -->
 <div id="map" style="width:100vw;height:100vh;"></div>
-<button onclick="toggleMapType()" style="position: absolute; top: 10px; left: 10px; z-index: 10;">
-    지도 타입 전환
-</button>
+
+
 </body>
+
 <!-- 지도 관련 스크립트들 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e233d74bf94ac6bba7c8506e320cfa7"></script>
-
 <!-- 순서 중요: 헤더 먼저 불러오고 나머지 실행 -->
 <script src="/js/app.js"></script>
 <script src="/js/load-header.js"></script>
@@ -36,4 +26,5 @@
 <script src="/js/geolocation.js"></script>
 <script src="/js/search.js"></script>
 <script src="/js/click-coord.js"></script>
+
 </html>

@@ -1,0 +1,69 @@
+/* headerStyle.css (헤더 스타일) */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #222;
+  color: white;
+  padding: 10px 20px;
+  flex-wrap: wrap;
+}
+
+#site-title {
+  font-size: 1.5em;
+  margin: 5px 0;
+}
+
+nav {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+}
+
+/* 반응형 헤더 스타일 */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  nav {
+    justify-content: center;
+  }
+
+  #site-title {
+    font-size: 1.2em;
+  }
+}
+
+#layoutGroup-View {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  justify-content: center;
+
+}
+
+.layout-button {
+  width: 2vw;
+  height: 5vh;
+  min-width: 30px;
+  min-height: 30px;
+  background: url("/images/Map_View.png") no-repeat center center;
+  background-size: contain;
+}
+
+.layout-button.selected {
+  border: 2px solid #007bff;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  background: url("/images/Sky_View.png") no-repeat center center;
+  background-size: contain;
+  background-color: #e0f0ff;
+}
