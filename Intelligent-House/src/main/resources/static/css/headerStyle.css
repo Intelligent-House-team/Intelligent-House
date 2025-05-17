@@ -48,23 +48,43 @@ nav a {
   display: flex;
   gap: 10px;
   position: absolute;
-  justify-content: center;
+  justify-content: flex-start; /* 왼쪽 정렬로 변경 */
   z-index: 10;
+  top: 85px; /* 필요에 따라 위치 조정 */
+  left: 10px; /* 필요에 따라 위치 조정 */
 }
 
 .layout-button {
-  width: 2vw;
+  width: 5vh; /* 높이에 맞춰 정사각형 */
   height: 5vh;
-  min-width: 30px;
-  min-height: 30px;
-  background: url("/images/Map_View.png") no-repeat center center;
-  background-size: contain;
+  min-width: auto;
+  min-height: auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover; /* 이미지가 버튼 영역을 꽉 채우도록 변경 */
+  border: none;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 5px;
+  text-indent: -9999px; /* 텍스트 숨김 처리 */
+}
+
+#layout-MapView {
+  background-image: url("/images/Map_View.png"); /* 지도 뷰 버튼 이미지 */
+}
+
+#layout-SkyView {
+  background-image: url("/images/Sky_View.png"); /* 스카이 뷰 버튼 이미지 */
+}
+
+#Login {
+  background-image: url("/images/login.png"); /* 로그인 버튼 이미지 (예시, 실제 경로로 변경) */
 }
 
 .layout-button.selected {
   border: 2px solid #007bff;
   box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-  background: url("/images/Sky_View.png") no-repeat center center;
-  background-size: contain;
-  background-color: #e0f0ff;
+  background-image: url("/images/Sky_View.png"); /* 선택 시 스카이 뷰 이미지로 변경 */
+  background-size: cover; /* 선택 시에도 이미지 꽉 채우기 */
+  background-color: transparent; /* 배경색 투명하게 */
 }
