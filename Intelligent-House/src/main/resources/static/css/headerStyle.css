@@ -47,44 +47,61 @@ nav a {
 #layoutGroup-View {
   display: flex;
   gap: 10px;
-  position: absolute;
-  justify-content: flex-start; /* 왼쪽 정렬로 변경 */
+  position: absolute; /* absolute로 변경 */
+  justify-content: flex-start;
+  align-items: center;
   z-index: 10;
-  top: 85px; /* 필요에 따라 위치 조정 */
-  left: 10px; /* 필요에 따라 위치 조정 */
+  top: 90px; /* 헤더 높이 등을 고려하여 위치 조정 */
+  left: 10px;
+  width: 100%;
+  padding-right: 5vh;
+  box-sizing: border-box;
 }
 
 .layout-button {
-  width: 5vh; /* 높이에 맞춰 정사각형 */
+  width: 5vh;
   height: 5vh;
   min-width: auto;
   min-height: auto;
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: cover; /* 이미지가 버튼 영역을 꽉 채우도록 변경 */
+  background-size: cover;
   border: none;
   padding: 0;
   overflow: hidden;
   border-radius: 5px;
-  text-indent: -9999px; /* 텍스트 숨김 처리 */
+  text-indent: -9999px;
 }
 
 #layout-MapView {
-  background-image: url("/images/Map_View.png"); /* 지도 뷰 버튼 이미지 */
+  background-image: url("/images/Map_View.png");
 }
 
 #layout-SkyView {
-  background-image: url("/images/Sky_View.png"); /* 스카이 뷰 버튼 이미지 */
+  background-image: url("/images/Sky_View.png");
 }
 
 #Login {
-  background-image: url("/images/login.png"); /* 로그인 버튼 이미지 (예시, 실제 경로로 변경) */
+  margin-left: auto;
+  background-image: url("/images/naver.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: transparent;
 }
 
 .layout-button.selected {
   border: 2px solid #007bff;
   box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-  background-image: url("/images/Sky_View.png"); /* 선택 시 스카이 뷰 이미지로 변경 */
-  background-size: cover; /* 선택 시에도 이미지 꽉 채우기 */
-  background-color: transparent; /* 배경색 투명하게 */
+  background-image: url("/images/Sky_View.png");
+  background-size: cover;
+  background-color: transparent;
+}
+
+/* 지도 영역 스타일 */
+#map {
+  width: 100vw;
+  height: 100vh;
+  padding-top: 100px; /* #layoutGroup-View 높이 + 여유 공간 만큼 padding-top 추가 */
+  box-sizing: border-box; /* padding이 높이에 포함되도록 */
 }
