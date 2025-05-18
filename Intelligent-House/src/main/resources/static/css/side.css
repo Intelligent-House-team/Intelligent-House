@@ -5,10 +5,11 @@
 
 /* 히든 사이드바 스타일 */
 .sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
+  height: 100vh;
+  width: var(--fixed-sidebar-width);
   z-index: 3;
+  position: fixed;
+  transform: translateX(100%); /* 오른쪽으로 밀려 있어 안 보임 */
   top: 0;
   right: 0;
   background-color: #111;
@@ -18,8 +19,8 @@
   color: white;
 }
 .sidebar.open {
-
-  width: 250px;/* 사이드바 열릴 때 */
+  transform: translateX(0%);
+/* 사이드바 열릴 때 */
 }
 
 .sidebar a {
@@ -29,6 +30,8 @@
   color: #818181;
   display: block;
   transition: 0.3s;
+  padding: 10px 20px;
+  white-space: nowrap;      /* 줄바꿈 방지 */
 }
 .sidebar a:hover {
 
@@ -50,7 +53,6 @@
   place-items: center;
 }
 #sidebarButton:hover {
-
   opacity: 0.8;
 }
 
@@ -66,14 +68,15 @@
   display: none;
 }
 .overlay.open {
-
   display: block;
 }
 
 /* 고정형 사이드바 스타일 */
 .fixed-sidebar {
-  width: var(--fixed-sidebar-width);
   height: 100vh;
+  width: var(--fixed-sidebar-width);
+  z-index: 3;
+
   position: fixed;
   top: 0;
   right: 0;
@@ -84,11 +87,9 @@
   transition: transform 0.3s ease;
 }
 .fixed-sidebar.open {
-
   transform: translateX(0%);
 }
 .fixed-sidebar.closed {
-
   transform: translateX(100%);
 }
 
@@ -125,7 +126,6 @@
 }
 /* 사이드바 열릴 때 버튼도 따라 움직임 */
 .fixed-sidebar.open + #fixed-sidebar-button {
-
   transform: translateY(-50%) translateX(calc(-1 * var(--fixed-sidebar-width)));
 }
 
