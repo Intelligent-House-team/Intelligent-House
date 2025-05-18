@@ -6,28 +6,23 @@
     <link rel="stylesheet" href="/css/side.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/headerStyle.css">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon"> <script src="/js/side.js" defer></script>
-</head>
-
-<body>
-
-
-<!-- 지도 영역 -->
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script src="/js/side.js" defer></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e233d74bf94ac6bba7c8506e320cfa7&libraries=services"></script><body>
 <div id="map" style="width:100vw;height:100vh;"></div>
 
+<footer>
+    <input type="text" placeholder="검색어를 입력하세요" id="addressInput">
+    <button type="button" id="searchButton">확인</button>
+</footer>
 
-</body>
-
-<!-- 지도 관련 스크립트들 -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e233d74bf94ac6bba7c8506e320cfa7"></script>
-<!-- 순서 중요: 헤더 먼저 불러오고 나머지 실행 -->
 <script src="/js/app.js"></script>
 <script src="/js/load-header.js"></script>
-
-
 <script src="/js/geolocation.js"></script>
 <script src="/js/marker.js"></script>
 <script src="/js/search.js"></script>
 <script src="/js/click-coord.js"></script>
-
+<script src="/js/footer.js" defer></script>
+</body>
 </html>

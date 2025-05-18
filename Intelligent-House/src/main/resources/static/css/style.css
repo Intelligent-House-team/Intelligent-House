@@ -2,15 +2,16 @@ html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: hidden; /* 세로 스크롤 허용 */
   /* 필요하다면 기본 폰트 설정 등을 여기에 추가 */
 }
 
-/* 지도 영역 관련 스타일 (예시) */
+/* 지도 영역 관련 스타일 */
 #map {
   width: 100vw;
-  height: 100vh;
-  padding:top;
+  /* 푸터 높이를 고려하여 지도 높이 설정 (푸터 높이에 따라 값 조정) */
+  height: calc(100vh - 60px); /* 예시: 푸터 높이가 60px인 경우 */
+  padding-top: 0; /* 유효하지 않은 속성 제거 */
   /* 기타 지도 관련 스타일 */
 }
 
