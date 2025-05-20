@@ -16,6 +16,23 @@ fetch('/sidebar/hiddenSidebar.html')
     overlay.addEventListener('click', function() {
       sidebar.classList.remove('open');
       overlay.classList.remove('open');
+
+      //가이드 페이지 전환 버튼
+      const guide1 = document.getElementById('Guide1');
+      const guide2 = document.getElementById('Guide2');
+      const header = document.getElementById('layoutGroup-View');
+
+      const guideImg = document.querySelector('#Guide1');
+      guideImg.style.display = 'block';
+
+      guide1.addEventListener('click', function() {
+        document.querySelector('#map').style.display = 'none';
+        document.querySelector('footer').style.display = 'none';
+            });
+      guide2.addEventListener('click', function() {
+
+            });
+
     });
   });
 

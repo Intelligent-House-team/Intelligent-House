@@ -7,7 +7,7 @@
 .sidebar {
   height: 100vh;
   width: var(--fixed-sidebar-width);
-  z-index: 3;
+  z-index: 10;
   position: fixed;
   transform: translateX(100%); /* 오른쪽으로 밀려 있어 안 보임 */
   top: 0;
@@ -64,7 +64,7 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
+  z-index: 9;
   display: none;
 }
 .overlay.open {
@@ -75,7 +75,7 @@
 .fixed-sidebar {
   height: 100vh;
   width: var(--fixed-sidebar-width);
-  z-index: 3;
+  z-index: 10;
 
   position: fixed;
   top: 0;
@@ -121,7 +121,7 @@
   border: none;
   cursor: pointer;
   font-size: 24px;
-  z-index: 2;
+  z-index: 9;
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 /* 사이드바 열릴 때 버튼도 따라 움직임 */

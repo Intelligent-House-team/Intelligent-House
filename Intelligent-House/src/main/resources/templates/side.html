@@ -8,6 +8,36 @@
       width: 100vw;
       height: 100vh;
     }
+    .context-menu {
+  position: absolute;
+  background-color: #222;
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.context-menu.hidden {
+  display: none;
+}
+
+.context-button {
+  background: #444;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+}
+
+.context-button:hover {
+  background-color: #666;
+}
 </style>
 
 <head>
@@ -19,6 +49,12 @@
 <body>
 <!-- 지도 영역 -->
 <div id="map" style="width: 100vw; height: 100vh;"></div> <!-- 사이드바 고려해서 너비 조정 -->
+
+<!-- 팝업 메뉴 -->
+<div id="contextMenu" class="context-menu hidden">
+    <button class="context-button">옵션 1</button>
+    <button class="context-button">옵션 2</button>
+</div>
 
 </body>
 
@@ -32,4 +68,25 @@
 <script src="/js/geolocation.js"></script>
 <script src="/js/search.js"></script>
 <script src="/js/click-coord.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const contextMenu = document.getElementById("contextMenu");
+
+  document.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+
+    const x = e.pageX;
+    const y = e.pageY;
+
+    contextMenu.style.left = `${x}px`;
+    contextMenu.style.top = `${y}px`;
+    contextMenu.classList.remove("hidden");
+  });
+
+  document.addEventListener("click", () => {
+    contextMenu.classList.add("hidden");
+  });
+});
+
+</script>
 </html>

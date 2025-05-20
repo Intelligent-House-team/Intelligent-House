@@ -11,7 +11,7 @@ footer {
   width: 100%; /* 가로 전체 너비 */
   box-sizing: border-box; /* padding, border가 width에 포함되도록 설정 */
   height: 60px; /* 푸터 높이 명시 */
-  z-index: 1000; /* 다른 요소 위에 표시 */
+  z-index: 4; /* 다른 요소 위에 표시 */
   overflow: hidden; /* 푸터 내용이 가로로 넘치면 숨김 */
 }
 
