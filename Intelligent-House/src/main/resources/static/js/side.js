@@ -7,33 +7,91 @@ fetch('/sidebar/hiddenSidebar.html')
     const sidebarButton = document.getElementById('sidebarButton');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
+    const guide1 = document.getElementById('Guide1');
+    const guide2 = document.getElementById('Guide2');
 
-    sidebarButton.addEventListener('click', function() {
+    const mapDiv = document.getElementById('map');
+    const guideDiv = document.getElementById('guide');
+    const footer = document.querySelector('footer');
+    const header = document.getElementById('layoutGroup-View');
+
+    // 버튼 없으면 return
+    if (!guide1 || !guide2 || !mapDiv || !guideDiv) {
+      console.error('필요한 요소 중 일부를 찾지 못했습니다.');
+      return;
+    }
+
+    // 사이드바 열기
+    sidebarButton.addEventListener('click', () => {
       sidebar.classList.add('open');
       overlay.classList.add('open');
     });
 
-    overlay.addEventListener('click', function() {
+    // 오버레이 클릭 시 닫기
+    overlay.addEventListener('click', () => {
       sidebar.classList.remove('open');
       overlay.classList.remove('open');
-
-      //가이드 페이지 전환 버튼
-      const guide1 = document.getElementById('Guide1');
-      const guide2 = document.getElementById('Guide2');
-      const header = document.getElementById('layoutGroup-View');
-
-      const guideImg = document.querySelector('#Guide1');
-      guideImg.style.display = 'block';
-
-      guide1.addEventListener('click', function() {
-        document.querySelector('#map').style.display = 'none';
-        document.querySelector('footer').style.display = 'none';
-            });
-      guide2.addEventListener('click', function() {
-
-            });
-
     });
+
+    // Guide1 클릭
+        guide1.addEventListener('click', () => {
+          mapDiv.style.display = 'none';
+          guideDiv.style.display = 'block';
+          guideDiv.style.backgroundImage = "url('/images/Youtube.jpg')";
+          guideDiv.style.backgroundSize = "cover";
+          guideDiv.style.backgroundPosition = "center";
+
+          if (footer) {
+            footer.style.visibility = 'hidden';
+            footer.style.pointerEvents = 'none';
+          }
+          if (header) {
+            header.style.visibility = 'hidden';
+            header.style.pointerEvents = 'none';
+          }
+
+          sidebar.classList.remove('open');
+          overlay.classList.remove('open');
+        });
+
+        // Guide2 클릭
+        guide2.addEventListener('click', () => {
+          mapDiv.style.display = 'none';
+          guideDiv.style.display = 'block';
+          guideDiv.style.backgroundImage = "url('/images/HouseIcon.png')";
+          guideDiv.style.backgroundSize = "cover";
+          guideDiv.style.backgroundPosition = "center";
+
+          if (footer) {
+            footer.style.visibility = 'hidden';
+            footer.style.pointerEvents = 'none';
+          }
+          if (header) {
+            header.style.visibility = 'hidden';
+            header.style.pointerEvents = 'none';
+          }
+
+          sidebar.classList.remove('open');
+          overlay.classList.remove('open');
+        });
+
+        // MainPage 복귀 (site-title 클릭)
+        const siteTitle = document.getElementById('site-title');
+        if (siteTitle) {
+          siteTitle.addEventListener('click', () => {
+            mapDiv.style.display = 'block';
+            guideDiv.style.display = 'none';
+
+            if (footer) {
+              footer.style.visibility = 'visible';
+              footer.style.pointerEvents = 'auto';
+            }
+            if (header) {
+              header.style.visibility = 'visible';
+              header.style.pointerEvents = 'auto';
+            }
+          });
+        }
   });
 
 // 2. fixedSidebar.html 불러오기

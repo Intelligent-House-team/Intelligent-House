@@ -104,4 +104,14 @@ nav a {
   height: 100vh;
   padding-top: 100px; /* #layoutGroup-View 높이 + 여유 공간 만큼 padding-top 추가 */
   box-sizing: border-box; /* padding이 높이에 포함되도록 */
+  display: block;
 }
+
+#guide {
+     width: 100vw;
+     height: 100vh;
+     display: none;
+     top: 0;
+     left: 0;
+     z-index: 1;
+   }
