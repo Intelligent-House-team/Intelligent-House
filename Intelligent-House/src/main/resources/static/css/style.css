@@ -2,135 +2,25 @@ html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
-  height: 100%;
-  overflow: hidden; /* 스크롤 방지 */
+  overflow: hidden; /* 세로 스크롤 허용 */
+  /* 필요하다면 기본 폰트 설정 등을 여기에 추가 */
 }
 
-/* 지도 전체 화면 채우기 (푸터 제외) */
+/* 지도 영역 관련 스타일 */
 #map {
   width: 100vw;
-  height: calc(100vh - 60px); /* footer가 60px이라면 */
-  position: relative;
+  /* 푸터 높이를 고려하여 지도 높이 설정 (푸터 높이에 따라 값 조정) */
+  height: calc(100vh - 60px); /* 예시: 푸터 높이가 60px인 경우 */
+  padding-top: 0; /* 유효하지 않은 속성 제거 */
+  /* 기타 지도 관련 스타일 */
 }
 
-/* 공통 팝업 래퍼 (로그인, 회원가입 모두 사용) */
-.popup-wrapper {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  justify-content: center; align-items: center;
-  z-index: 1000;
-}
+/* 사이드바 관련 스타일 (원래 side.css의 역할 유지) */
+/* #sidebar { ... } */
+/* .sidebar-item { ... } */
+/* ... 기타 사이드바 스타일 ... */
 
-/* 블러처리된 오버레이 */
-#Login-overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  z-index: 1000;
-}
-
-/* 팝업 콘텐츠 박스 (공통 사용) */
-.popup-content {
-  position: relative;
-  background: white;
-  width: 600px;
-  min-height: 400px;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 30px rgba(0,0,0,0.25);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1.2rem;
-  z-index: 1001;
-}
-
-/* 입력 그룹 */
-.input-group {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
-
-.input-group label {
-  font-weight: bold;
-  margin-bottom: 6px;
-  font-size: 0.95rem;
-}
-
-.input-group input {
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 100%;
-}
-
-/* 하단 버튼들 */
-.action-group {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#login-submit,
-#signup-submit {
-  padding: 10px 20px;
-  background: black;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.signup-link {
-  text-decoration: none;
-  color: #444;
-  font-size: 0.9rem;
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-/* 푸터 기본 스타일 */
-footer {
-  height: 60px;
-  background: #f1f1f1;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
-}
-
-footer input[type="text"] {
-  padding: 8px;
-  font-size: 1rem;
-  width: 250px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-footer button {
-  padding: 8px 16px;
-  font-size: 1rem;
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
+/* 공통 레이아웃 스타일 (선택 사항) */
+/* .container { ... } */
+/* .row { ... } */
+/* ... 기타 공통 레이아웃 스타일 ... */
