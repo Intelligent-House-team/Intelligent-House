@@ -82,7 +82,7 @@ nav a {
 }
 
 #Login {
-  margin-left: auto;
+  /*margin-left: auto;*/
   background-image: url("/images/naver.png");
   background-size: cover;
   background-repeat: no-repeat;
