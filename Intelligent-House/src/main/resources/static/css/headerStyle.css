@@ -81,15 +81,6 @@ nav a {
   background-image: url("/images/Sky_View.png");
 }
 
-<<<<<<< HEAD
-#Login {
-  /*margin-left: auto;*/
-  background-image: url("/images/naver.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-color: transparent;
-=======
 #LoginBtn {
   margin-left: auto;
   width: 5vw;
