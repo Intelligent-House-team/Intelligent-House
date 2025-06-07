@@ -13,13 +13,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // 개발 단계면 disable
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/signup", "/js/**", "/css/**").permitAll()
+                        .requestMatchers("/", "/signup", "/login", "/logout", "/js/**", "/css/**", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
-                        .loginPage("/") // 메인 페이지가 로그인 페이지인 경우
+                        // loginPage 생략 시 Spring 기본 로그인 페이지 사용 안 함
                         .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/", true)
                         .failureUrl("/?error")
