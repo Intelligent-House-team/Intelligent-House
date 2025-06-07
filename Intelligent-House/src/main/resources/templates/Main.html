@@ -15,7 +15,6 @@
 <div id="map"></div>
 <div id="guide"></div>
 
-<!-- 로그인 팝업 -->
 <div id="Login-PopUp" class="popup-wrapper">
     <div class="overlay" onclick="closePopup('Login-PopUp')"></div>
     <div class="popup-content">
@@ -38,7 +37,6 @@
     </div>
 </div>
 
-<!-- 회원가입 팝업 -->
 <div id="Signup-PopUp" class="popup-wrapper">
     <div class="overlay" onclick="closePopup('Signup-PopUp')"></div>
     <div class="popup-content">
@@ -46,22 +44,21 @@
         <h2>회원가입</h2>
         <div class="input-group">
             <label>아이디</label>
-            <input type="text" placeholder="아이디를 입력해주세요" />
+            <input type="text" name="username" placeholder="아이디를 입력해주세요" />
         </div>
         <div class="input-group">
             <label>비밀번호</label>
-            <input type="password" placeholder="비밀번호를 입력해주세요" />
+            <input type="password" name="password" placeholder="비밀번호를 입력해주세요" />
         </div>
         <div class="input-group">
             <label>닉네임</label>
-            <input type="text" placeholder="닉네임을 입력해주세요" />
+            <input type="text" name="nickname" placeholder="닉네임을 입력해주세요" />
         </div>
         <div class="action-group" style="justify-content: center;">
             <button id="signup-submit">회원 가입</button>
         </div>
     </div>
 </div>
-
 <footer>
     <input type="text" placeholder="검색어를 입력하세요" id="addressInput">
     <button type="button" id="searchButton">확인</button>
