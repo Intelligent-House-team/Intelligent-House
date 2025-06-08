@@ -18,7 +18,7 @@ public class Board {
 
     @CreationTimestamp
     private LocalDateTime createdDate;
-
+    private LocalDateTime occurredDate;
     // Getter, Setter 추가
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -34,4 +34,7 @@ public class Board {
 
     public LocalDateTime getCreatedDate() { return createdDate; }
     public void setCreatedDate(LocalDateTime createdDate) { this.createdDate = createdDate; }
+
+    public LocalDateTime getOccurredDate() { return occurredDate; }
+    public void setOccurredDate(LocalDateTime occurredDate) { this.occurredDate = occurredDate; }
 }

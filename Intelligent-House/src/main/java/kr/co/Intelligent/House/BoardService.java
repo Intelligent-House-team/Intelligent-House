@@ -14,7 +14,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     public List<Board> getAllBoards() {
-        return boardRepository.findAll();
+        return boardRepository.findAllByOrderByCreatedDateDesc();
     }
 
     public Board save(Board board) {

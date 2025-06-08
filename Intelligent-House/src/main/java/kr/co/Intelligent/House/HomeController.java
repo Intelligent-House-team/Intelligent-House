@@ -8,7 +8,6 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-
     private final BoardService boardService;
 
     public HomeController(BoardService boardService) {
@@ -18,7 +17,7 @@ public class HomeController {
     @GetMapping("/boards")
     public String showBoards(Model model) {
         List<Board> boards = boardService.getAllBoards();
-        model.addAttribute("boards", boards); // ✅ 올바른 메서드
+        model.addAttribute("boards", boards); // ← 이거 수정됨
         return "boardList";
     }
 
