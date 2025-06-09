@@ -33,18 +33,15 @@ fetch('/sidebar/hiddenSidebar.html')
       sidebarCloseBtn.classList.add('open');
     });
 
-    // 오버레이 클릭 시 닫기
-    overlay.addEventListener('click', () => {
+    // 히든 사이드 바 닫기
+    function closeHiddenSidebar() {
       sidebar.classList.remove('open');
       overlay.classList.remove('open');
-      sidebarCloseBtn.classList.remove("open");
-    });
-    // 히든 사이드바 닫기 버튼 추가
-    sidebarCloseBtn.addEventListener("click", () => {
-      sidebar.classList.remove("open");
-      overlay.classList.remove("open");
-      sidebarCloseBtn.classList.remove("open");
-    });
+      sidebarCloseBtn.classList.remove('open');
+    }
+    // 이벤트 등록
+    overlay.addEventListener('click', closeHiddenSidebar);
+    sidebarCloseBtn.addEventListener('click', closeHiddenSidebar);
 
     // Guide1 클릭
     guide1.addEventListener('click', () => {
@@ -63,8 +60,7 @@ fetch('/sidebar/hiddenSidebar.html')
         header.style.pointerEvents = 'none';
       }
 
-      sidebar.classList.remove('open');
-      overlay.classList.remove('open');
+      closeHiddenSidebar();
     });
 
     // Guide2 클릭
@@ -84,8 +80,7 @@ fetch('/sidebar/hiddenSidebar.html')
         header.style.pointerEvents = 'none';
       }
 
-      sidebar.classList.remove('open');
-      overlay.classList.remove('open');
+      closeHiddenSidebar();
     });
 
     // MainPage 복귀 (site-title 클릭)
