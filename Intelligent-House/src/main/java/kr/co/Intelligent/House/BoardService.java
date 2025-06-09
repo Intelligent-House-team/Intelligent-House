@@ -1,5 +1,7 @@
 package kr.co.Intelligent.House;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +15,10 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    public List<Board> getAllBoards() {
-        return boardRepository.findAllByOrderByCreatedDateDesc();
+    // Page형식으로 변경 전
+    //public List<Board> getAllBoards() { return boardRepository.findAllByOrderByCreatedDateDesc(); }
+    public Page<Board> getBoardList(Pageable pageable) {
+        return boardRepository.findAllByOrderByCreatedDateDesc(pageable);
     }
 
     public Board save(Board board) {
