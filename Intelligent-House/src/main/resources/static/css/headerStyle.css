@@ -47,11 +47,11 @@ nav a {
 #layoutGroup-View {
   display: flex;
   gap: 10px;
-  position: absolute; /* absolute로 변경 */
+  position: relative; /* absolute로 변경 */
   justify-content: flex-start;
   align-items: center;
   z-index: 10;
-  top: 90px; /* 헤더 높이 등을 고려하여 위치 조정 */
+  top: 1vh; /* 마진값 이거 바꾸면됨 */
   left: 10px;
   width: 100%;
   padding-right: 5vh;

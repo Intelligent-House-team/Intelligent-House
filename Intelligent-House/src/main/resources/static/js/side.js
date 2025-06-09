@@ -7,6 +7,8 @@ fetch('/sidebar/hiddenSidebar.html')
     const sidebarButton = document.getElementById('sidebarButton');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
+    const sidebarCloseBtn = document.getElementById("closeSidebar");
+
     const guide1 = document.getElementById('Guide1');
     const guide2 = document.getElementById('Guide2');
 
@@ -17,84 +19,96 @@ fetch('/sidebar/hiddenSidebar.html')
 
     // 버튼 없으면 return
     if (!guide1 || !guide2 || !mapDiv || !guideDiv) {
-      console.error('필요한 요소 중 일부를 찾지 못했습니다.');
-      return;
+      console.log('필요한 요소 중 일부를 찾지 못했습니다.');
+      if (window.location.pathname !== '/boards'){
+        console.error('게시판 페이지가 아닌데 요소를 잃어버림');
+        return;
+      }
     }
 
     // 사이드바 열기
     sidebarButton.addEventListener('click', () => {
       sidebar.classList.add('open');
       overlay.classList.add('open');
+      sidebarCloseBtn.classList.add('open');
     });
 
     // 오버레이 클릭 시 닫기
     overlay.addEventListener('click', () => {
       sidebar.classList.remove('open');
       overlay.classList.remove('open');
+      sidebarCloseBtn.classList.remove("open");
+    });
+    // 히든 사이드바 닫기 버튼 추가
+    sidebarCloseBtn.addEventListener("click", () => {
+      sidebar.classList.remove("open");
+      overlay.classList.remove("open");
+      sidebarCloseBtn.classList.remove("open");
     });
 
     // Guide1 클릭
-        guide1.addEventListener('click', () => {
-          mapDiv.style.display = 'none';
-          guideDiv.style.display = 'block';
-          guideDiv.style.backgroundImage = "url('/images/Youtube.jpg')";
-          guideDiv.style.backgroundSize = "cover";
-          guideDiv.style.backgroundPosition = "center";
+    guide1.addEventListener('click', () => {
+      mapDiv.style.display = 'none';
+      guideDiv.style.display = 'block';
+      guideDiv.style.backgroundImage = "url('/images/Youtube.jpg')";
+      guideDiv.style.backgroundSize = "cover";
+      guideDiv.style.backgroundPosition = "center";
 
-          if (footer) {
-            footer.style.visibility = 'hidden';
-            footer.style.pointerEvents = 'none';
-          }
-          if (header) {
-            header.style.visibility = 'hidden';
-            header.style.pointerEvents = 'none';
-          }
+      if (footer) {
+        footer.style.visibility = 'hidden';
+        footer.style.pointerEvents = 'none';
+      }
+      if (header) {
+        header.style.visibility = 'hidden';
+        header.style.pointerEvents = 'none';
+      }
 
-          sidebar.classList.remove('open');
-          overlay.classList.remove('open');
-        });
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+    });
 
-        // Guide2 클릭
-        guide2.addEventListener('click', () => {
-          mapDiv.style.display = 'none';
-          guideDiv.style.display = 'block';
-          guideDiv.style.backgroundImage = "url('/images/HouseIcon.png')";
-          guideDiv.style.backgroundSize = "cover";
-          guideDiv.style.backgroundPosition = "center";
+    // Guide2 클릭
+    guide2.addEventListener('click', () => {
+      mapDiv.style.display = 'none';
+      guideDiv.style.display = 'block';
+      guideDiv.style.backgroundImage = "url('/images/HouseIcon.png')";
+      guideDiv.style.backgroundSize = "cover";
+      guideDiv.style.backgroundPosition = "center";
 
-          if (footer) {
-            footer.style.visibility = 'hidden';
-            footer.style.pointerEvents = 'none';
-          }
-          if (header) {
-            header.style.visibility = 'hidden';
-            header.style.pointerEvents = 'none';
-          }
+      if (footer) {
+        footer.style.visibility = 'hidden';
+        footer.style.pointerEvents = 'none';
+      }
+      if (header) {
+        header.style.visibility = 'hidden';
+        header.style.pointerEvents = 'none';
+      }
 
-          sidebar.classList.remove('open');
-          overlay.classList.remove('open');
-        });
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+    });
 
-        // MainPage 복귀 (site-title 클릭)
-        const siteTitle = document.getElementById('site-title');
-        if (siteTitle) {
-          siteTitle.addEventListener('click', () => {
-            mapDiv.style.display = 'block';
-            guideDiv.style.display = 'none';
+    // MainPage 복귀 (site-title 클릭)
+    const siteTitle = document.getElementById('site-title');
+    if (siteTitle) {
+      siteTitle.addEventListener('click', () => {
+        mapDiv.style.display = 'block';
+        guideDiv.style.display = 'none';
 
-            if (footer) {
-              footer.style.visibility = 'visible';
-              footer.style.pointerEvents = 'auto';
-            }
-            if (header) {
-              header.style.visibility = 'visible';
-              header.style.pointerEvents = 'auto';
-            }
-          });
+        if (footer) {
+          footer.style.visibility = 'visible';
+          footer.style.pointerEvents = 'auto';
         }
+        if (header) {
+          header.style.visibility = 'visible';
+          header.style.pointerEvents = 'auto';
+        }
+      });
+    }
   });
 
 // 2. fixedSidebar.html 불러오기
+if (window.location.pathname !== '/boards') {
 fetch('/sidebar/fixedSidebar.html')
   .then(res => res.text())
   .then(html => {
@@ -123,3 +137,4 @@ fetch('/sidebar/fixedSidebar.html')
       isFixedSidebarClose = !isFixedSidebarClose;
     });
   });
+}
