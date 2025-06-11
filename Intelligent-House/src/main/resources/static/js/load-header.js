@@ -15,11 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // 1. 타이틀 설정
             const title = 'Intelligent House';
-            document.title = title;
 
             const siteTitle = document.getElementById('site-title');
             if (siteTitle) {
                 siteTitle.textContent = title;
+                siteTitle.style.cursor = 'pointer';
+                siteTitle.addEventListener('click', () => {
+                    window.location.href = '/';
+                });
             }
 
             // 2. 지도 타입 전환 버튼 로직

@@ -20,7 +20,8 @@ public class SecurityConfig {
                                 "/js/**", "/css/**", "/images/**", "/sidebar/**", "/favicon.ico", // 정적 리소스
                                 "/api/signup",             // 회원가입 API
                                 "/side", "/header",        // 헤더/사이드 동적 로딩용
-                                "/api/user/nickname"       // 중복 체크용 API
+                                "/api/user/nickname",       // 중복 체크용 API
+                                "/boards", "/boardList.html"
                         ).permitAll()
                         .requestMatchers("/login", "/logout").permitAll()
                         .anyRequest().authenticated()
