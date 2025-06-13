@@ -7,6 +7,16 @@ html, body {
    box-sizing: border-box;
    overflow-x: hidden;
 }
+.section-title {
+   margin-left: 16px;
+   margin-bottom: 6px;
+}
+.section-underline {
+   border-bottom: 2px solid black;
+   width: 100%;
+   margin-left: 10px;
+   margin-bottom: 12px;
+}
 
 .container {
    max-width: 100%;
@@ -50,25 +60,53 @@ html, body {
 }
 
 .created {
-   flex: 1;
-   text-align: right;
-   min-width: 100px;
+    font-size: 14px;
+    color: #888;
+    flex: 1;
+    text-align: right;
+    min-width: 100px;
 }
 
-.pagination {
-   text-align: center;
-   padding: 20px 0;
+.post-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    font-size: 14px;
+    overflow: hidden;
+    transition: background-color 0.2s ease;
 }
 
-.pagination span,
-.pagination a {
-   font-weight: bold;
-   color: black;
-   text-decoration: none;
-   margin: 0 4px;
+.post-item:hover {
+    background-color: #f3f3f3;
+}
+.meta-top {
+    flex: 2;
+    text-align: left;
+    min-width: 250px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 
-.pagination .current {
-   color: red;
-   font-weight: bold;
+.meta-top .date {
+    color: #333;
+    font-weight: normal;
+    white-space: nowrap;
+}
+
+.meta-top .title {
+    font-size: 18px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: black !important;
+    text-decoration: none !important;
+}
+
+.meta-top .title:hover {
+    text-decoration: underline;
+    color: blue;
 }

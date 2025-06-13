@@ -2,38 +2,59 @@
     <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <title>사건 / 사고 건물</title>
         <link rel="stylesheet" href="/css/headerStyle.css">
         <link rel="stylesheet" href="/css/side.css">
+        <link rel="stylesheet" href="/css/board.css">
+        <link rel="stylesheet" href="/css/pageGuide.css">
     </head>
     <body>
+    <h2 class="section-title">사건 / 사고 건물</h2>
+    <div class="section-underline"></div>
+
     <div class="container">
+        <!--<div th:each="board : ${boards}" class="post-item">
+            <div class="date" th:text="${board.occurredDate != null ? #temporals.format(board.occurredDate, 'yyyy년 MM월 dd일') : '날짜 없음'}"> 2025년 03월 20일 </div>
+            <div class="title"> <a th:href="@{/boards/content/{id}(id=${board.id})}" th:text="${board.title}">제목</a> </div>
+            <div class="created" th:text="${board.createdDate != null ? #temporals.format(board.createdDate, 'yyyy.MM.dd') : '미기록'}"> 2025.06.09 </div>
+        </div>-->
+        <!-- 2호게이
         <div th:each="board : ${boards}" class="post-item">
-            <div class="date"
-                 th:text="${board.occurredDate != null ? #temporals.format(board.occurredDate, 'yyyy년 MM월 dd일') : '날짜 없음'}">
-                2025년 03월 20일
+            <a th:href="@{/boards/content/{id}(id=${board.id})}">
+                <div class="meta-top"th:text="${(board.occurredDate != null ? #temporals.format(board.occurredDate, 'yyyy년 MM월 dd일') : '날짜 없음') + ' ' + (board.title != null ? board.title : '제목 없음')}">
+                    날짜 + 제목
+                </div>
+            </a>
+            <div class="created"
+                 th:text="${board.createdDate != null ? #temporals.format(board.createdDate, 'yyyy.MM.dd') : '미기록'}">
+                작성일
             </div>
-            <div class="title">
-                <a th:href="@{/boards/content/{id}(id=${board.id})}" th:text="${board.title}">제목</a>
+        </div>-->
+        <!--<div th:each="board : ${boards}" class="post-item">
+            <div class="meta-top">
+                <span class="date" th:text="${board.occurredDate != null ? #temporals.format(board.occurredDate, 'yyyy년 MM월 dd일') : '날짜 없음'}">2025년 03월 20일</span>
+                <a th:href="@{/boards/content/{id}(id=${board.id})}" class="title"
+                   th:text="${board.title != null ? board.title : '제목 없음'}">제목</a>
+            </div>
+            <div class="created"
+                 th:text="${board.createdDate != null ? #temporals.format(board.createdDate, 'yyyy.MM.dd') : '미기록'}">
+                2025.06.09
+            </div>
+        </div>-->
+        <div th:each="board : ${boards}" class="post-item">
+        <!-- 기능시도중이나 비정상동작함 <a th:href="@{'/boards/content/' + ${board.id} + '?page=' + ${currentPage}}">[[${board.title}]]</a>-->
+            <div class="meta-top">
+                <span class="date" th:text="${board.occurredDate != null ? #temporals.format(board.occurredDate, 'yyyy년 MM월 dd일') : '날짜 없음'}">2025년 03월 20일</span>
+                &nbsp;
+                <a class="title" th:href="@{/boards/content/{id}(id=${board.id})}"
+                   th:text="${board.title != null ? board.title : '제목 없음'}">제목</a>
             </div>
             <div class="created"
                  th:text="${board.createdDate != null ? #temporals.format(board.createdDate, 'yyyy.MM.dd') : '미기록'}">
                 2025.06.09
             </div>
         </div>
-
-        <div class="pagination">
-            <a th:if="${!boardPage.first}" th:href="@{/boards(page=0)}">«</a>
-            <a th:if="${startPage >= 10}" th:href="@{/boards(page=${startPage - 10})}">&lt;</a>
-
-            <span th:each="i : ${#numbers.sequence(startPage, endPage)}">
-            <a th:if="${i != currentPage}" th:href="@{/boards(page=${i})}" th:text="${i + 1}"></a>
-            <span th:if="${i == currentPage}" th:text="${i + 1}" class="current"></span>
-        </span>
-
-            <a th:if="${endPage + 1 < boardPage.totalPages}" th:href="@{/boards(page=${startPage + 10})}">&gt;</a>
-            <a th:if="${!boardPage.last}" th:href="@{/boards(page=${boardPage.totalPages - 1})}">»</a>
-        </div>
+        <!-- 기존 pageGuide 삭제 후 아래 코드 삽입 -->
+        <div th:replace="pageGuide :: pageGuide('/boards', ${boardPage}, ${startPage}, ${endPage}, ${currentPage})"></div>
     </div>
     <script src="/js/load-header.js"></script>
     <script src="/js/side.js"></script>

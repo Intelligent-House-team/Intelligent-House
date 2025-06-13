@@ -21,7 +21,7 @@ public class SecurityConfig {
                                 "/api/signup",             // 회원가입 API
                                 "/side", "/header",        // 헤더/사이드 동적 로딩용
                                 "/api/user/nickname",       // 중복 체크용 API
-                                "/boards", "/boardList.html"
+                                "/boards", "/boardList.html", "/pageGuide.html", "/pageGuide"
                         ).permitAll()
                         .requestMatchers("/login", "/logout", "/boards/content/**", "/content.html").permitAll()
                         .anyRequest().authenticated()

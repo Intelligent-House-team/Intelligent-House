@@ -1,0 +1,30 @@
+<!-- /templates/pageGuide.html -->
+<div class="pageGuide" th:fragment="pageGuide(pageUrl, boardPage, startPage, endPage, currentPage)">
+  <a th:if="${!boardPage.first}" th:href="@{${pageUrl}(page=0)}">«</a>
+  <a th:if="${startPage >= 10}" th:href="@{${pageUrl}(page=${startPage - 10})}">&lt;</a>
+
+  <span th:each="i : ${#numbers.sequence(startPage, endPage)}">
+        <a th:if="${i != currentPage}" th:href="@{${pageUrl}(page=${i})}" th:text="${i + 1}"></a>
+        <span th:if="${i == currentPage}" th:text="${i + 1}" class="current"></span>
+    </span>
+
+  <a th:if="${endPage + 1 < boardPage.totalPages}" th:href="@{${pageUrl}(page=${startPage + 10})}">&gt;</a>
+  <a th:if="${!boardPage.last}" th:href="@{${pageUrl}(page=${boardPage.totalPages - 1})}">»</a>
+</div>
+
+<!-- 기능시도중이나 비정상동작중
+<div th:fragment="pageGuide(baseUrl, boardPage, startPage, endPage, currentPage)">
+  <ul class="pagination">
+    <li th:if="${startPage > 0}">
+      <a th:href="@{${baseUrl}(page=${startPage - 1})}">&laquo;</a>
+    </li>
+    <li th:each="pageNum : ${#numbers.sequence(startPage, endPage)}"
+        th:classappend="${pageNum} == ${currentPage} ? 'active'">
+      <a th:href="@{${baseUrl}(page=${pageNum})}"
+         th:text="${pageNum + 1}"></a>
+    </li>
+    <li th:if="${endPage < boardPage.totalPages - 1}">
+      <a th:href="@{${baseUrl}(page=${endPage + 1})}">&raquo;</a>
+    </li>
+  </ul>
+</div>-->

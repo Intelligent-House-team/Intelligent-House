@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/css/side.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/headerStyle.css">
+  <link rel="stylesheet" href="/css/pageGuide.css">
   <style>
     /* 게시판 상세페이지 상단 제목 */
     .section-title {
@@ -167,6 +168,10 @@
     <button th:onclick="|location.href='/boards/delete/${board.id}'|">삭제</button>
   </div>
 </div>
+<div th:replace="pageGuide :: pageGuide('/boards', ${boardPage}, ${startPage}, ${endPage}, ${currentPage})"></div>
+<!-- 왜 안되냐
+<div th:replace="pageGuide :: pageGuide('/boards', ${boardPage}, ${startPage}, ${endPage}, ${currentPage})"></div>-->
+
 
 </body>
 <script src="/js/load-header.js"></script>

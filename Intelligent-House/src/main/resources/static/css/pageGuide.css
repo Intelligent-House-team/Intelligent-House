@@ -1,0 +1,22 @@
+.pageGuide {
+   text-align: center;
+   padding: 20px 0;
+}
+
+.pageGuide span,
+.pageGuide a {
+   font-weight: bold;
+   color: black;
+   text-decoration: none;
+   margin: 0 4px;
+}
+
+.pageGuide .current {
+   color: red;
+   font-weight: bold;
+}
+
+.pagination .active a {
+    color: red;
+    font-weight: bold;
+}
