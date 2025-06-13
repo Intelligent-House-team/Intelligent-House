@@ -8,7 +8,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model; // ✅ 올바른 Model import
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.swing.*;
 import java.util.List;
 
 @Controller
@@ -34,7 +37,15 @@ public class HomeController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
-        return "boardList"; // boardList.html
+        return "/boardList"; // boardList.html
+    }
+
+    @GetMapping("/boards/content/{id}")
+    public String showBoardDetail(@PathVariable Long id, Model model) {
+        Board board = boardService.getBoardById(id);
+        if (board == null) return "error/404";
+        model.addAttribute("board", board);
+        return "content";
     }
 
     @GetMapping("/")

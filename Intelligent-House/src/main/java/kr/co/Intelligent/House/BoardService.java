@@ -1,3 +1,4 @@
+
 package kr.co.Intelligent.House;
 
 import org.springframework.data.domain.Page;
@@ -25,5 +26,8 @@ public class BoardService {
         return boardRepository.save(board);
     }
 
+    public Board getBoardById(Long id) {
+        return boardRepository.findById(id).orElse(null);
+    }
     // 상세, 수정, 삭제 등 추가 가능
 }

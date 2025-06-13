@@ -23,7 +23,7 @@ public class SecurityConfig {
                                 "/api/user/nickname",       // 중복 체크용 API
                                 "/boards", "/boardList.html"
                         ).permitAll()
-                        .requestMatchers("/login", "/logout").permitAll()
+                        .requestMatchers("/login", "/logout", "/boards/content/**", "/content.html").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login

@@ -103,7 +103,7 @@ fetch('/sidebar/hiddenSidebar.html')
   });
 
 // 2. fixedSidebar.html 불러오기
-if (window.location.pathname !== '/boards') {
+if (window.location.pathname == '/') {
 fetch('/sidebar/fixedSidebar.html')
   .then(res => res.text())
   .then(html => {

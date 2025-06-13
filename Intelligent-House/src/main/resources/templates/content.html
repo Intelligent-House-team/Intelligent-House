@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <meta charset="UTF-8">
+    <title th:text="'게시글 상세 - ' + ${board.title}">게시글 상세</title>
+  <link rel="stylesheet" href="/css/side.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/headerStyle.css">
+  <style>
+    /* 게시판 상세페이지 상단 제목 */
+    .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        padding-bottom: 10px;
+        margin: 0 4vh 10px 4vh; /* 좌우 마진 추가 */
+    }
+
+    /* 제목 밑 밑줄 */
+    .section-underline {
+        border-bottom: 2px solid #000;
+        margin: 0 6vh 30px 6vh; /* 좌우 마진 추가 */
+    }
+
+    /* 게시판 메타 정보 전체 묶음 */
+    .meta-row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 30px;
+        position: relative;
+    }
+
+    /* └ 날짜 + 제목 한 줄 정렬 */
+    .meta-top {
+        display: flex;
+        gap: 12px;
+        align-items: baseline;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+
+    /* └ 사건/사고 발생일 */
+    .meta-top .occurred-date {
+        font-size: 14px; /* 동일한 텍스트 스타일 적용 */
+        font-weight: normal;
+    }
+
+    /* └ 제목 텍스트 */
+    .meta-top .title {
+        font-size: 14px; /* 동일한 텍스트 스타일 적용 */
+        font-weight: normal;
+    }
+
+    /* └ 게시글 작성일 (오른쪽 정렬 + 마진) */
+    .created-date {
+        font-size: 14px;
+        color: #888;
+        align-self: flex-end;
+        margin-top: 4px;
+        margin-right: 4vh; /* 오른쪽 마진 추가 */
+    }
+
+    /* 게시글 본문 내용 */
+    .content {
+        padding: 20px;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        font-size: 18px; /* 2단계 키움 */
+        line-height: 1.8;
+        margin: 0 4vh; /* 좌우 마진 추가 */
+        min-height: 100px;
+    }
+
+    /* 버튼 영역 */
+    .button-group {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    /* └ 각 버튼 기본 스타일 */
+    .button-group button {
+        margin: 0 10px;
+        padding: 8px 16px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    /* └ 버튼 호버 효과 */
+    .button-group button:hover {
+        background-color: #f0f0f0;
+    }
+
+  </style>
+</head>
+<body>
+<!--<div class="post-container">
+    <div class="post-header">
+        <h2 th:text="${board.title}">제목</h2>
+        <p th:text="${#temporals.format(board.createdDate, 'yyyy.MM.dd')}">작성일</p>
+    </div>
+    <hr>
+    <div class="post-body" th:utext="${board.content}">
+        내용
+    </div>
+    <div class="post-actions">
+        <button onclick="location.href='/boards'">목록으로</button>
+        <button th:onclick="|location.href='/boards/edit/${board.id}'|">수정</button>
+        <button th:onclick="|location.href='/boards/delete/${board.id}'|">삭제</button>
+    </div>
+</div>-->
+<!--<div class="content-wrapper"> 일단 나름 동작하던거임
+    <div class="content-box">
+        <div class="occurred-date" th:text="${#temporals.format(board.occurredDate, 'yyyy년 MM월 dd일')}">
+            발생일
+        </div>
+        <div class="title" th:text="${board.title}">
+            게시글 제목
+        </div>
+        <div class="created-date" th:text="${#temporals.format(board.createdDate, 'yyyy.MM.dd')}">
+            작성일
+        </div>
+        <div class="content" th:utext="${board.content}">
+            게시글 내용
+        </div>
+
+        <div class="buttons">
+            <button onclick="location.href='/boards'">목록으로</button>
+            <button th:onclick="|location.href='/boards/edit/${board.id}'|">수정</button>
+            <button th:onclick="|location.href='/boards/delete/${board.id}'|">삭제</button>
+        </div>
+    </div>
+</div>-->
+<div class="content-wrapper">
+  <!-- div1: 제목 및 밑줄 -->
+  <div class="section-header">
+    <h2 class="section-title">사건/사고 건물</h2>
+    <div class="section-underline"></div>
+  </div>
+
+  <!-- div2: 날짜+제목 중앙, 작성일 우측 하단 정렬 -->
+  <!-- meta 영역 -->
+  <div class="meta-row">
+    <!-- 첫 줄: 날짜 + 제목 한 줄 -->
+    <div class="meta-top">
+      <span class="occurred-date" th:text="${#temporals.format(board.occurredDate, 'yyyy년 MM월 dd일')}">2025년 03월 25일</span>
+      <span class="title" th:text="${board.title}">영진전문대 중간고사 발표사건</span>
+    </div>
+    <!-- 두 번째 줄: 생성일 -->
+    <div class="created-date" th:text="${#temporals.format(board.createdDate, 'yyyy.MM.dd')}">2025.06.12</div>
+  </div>
+
+  <!-- div3: 내용 윗줄-내용-아랫줄 -->
+  <div class="content-box">
+    <div class="content" th:utext="${board.content}">영진에서 중간고사발표를 3번을 진행해서...</div>
+  </div>
+
+  <!-- div4: 버튼 -->
+  <div class="buttons">
+    <button onclick="location.href='/boards'">목록으로</button>
+    <button th:onclick="|location.href='/boards/edit/${board.id}'|">수정</button>
+    <button th:onclick="|location.href='/boards/delete/${board.id}'|">삭제</button>
+  </div>
+</div>
+
+</body>
+<script src="/js/load-header.js"></script>
+<script src="/js/side.js"></script>
+</html>
