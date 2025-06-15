@@ -77,3 +77,14 @@ if (!window.map) {
         }, 100);
     }, { passive: false });
 }
+document.addEventListener('click', function (event) {
+  const actionBox = document.getElementById('map-action-buttons');
+
+  // actionBox가 보이는 상태일 때만 처리
+  if (actionBox.style.display === 'block') {
+    // 클릭한 요소가 actionBox 안에 포함되지 않으면 닫기
+    if (!actionBox.contains(event.target)) {
+      actionBox.style.display = 'none';
+    }
+  }
+});
