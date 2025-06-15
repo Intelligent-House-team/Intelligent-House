@@ -17,13 +17,11 @@
     }
 
     .board-box {
-      width: 100vw;           /* 뷰포트 너비 100% */
-      height: 100vh;          /* 뷰포트 높이 100% */
-      <!--min-width: 320px;-->       /* 근데이거적용하면 좀 이상한거같음 최소 너비(모바일 가독성 확보) */
-      <!--max-width: 900px;-->       /* 최대 너비 제한 할일없을거같긴한데 일단 넣어만둠 */
+      width: 100vw;
+      height: 100vh;
       margin: 0 auto 60px auto;
       padding: 0 20px;
-      box-sizing: border-box; /* 패딩 포함한 크기 계산 */
+      box-sizing: border-box;
     }
 
     h2.section-title {
@@ -39,7 +37,8 @@
       font-weight: bold;
       font-size: clamp(12px, 7vw, 16px);
     }
-    .occurred-date{
+
+    .occurred-date {
       color: #666;
       font-size: clamp(8px, 4vw, 12px);
     }
@@ -56,12 +55,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      <!--height: 50%;-->
     }
 
     .meta-bottom {
       margin-top: 8px;
-      align-self: flex-end; /* 오른쪽 정렬 */
+      align-self: flex-end;
     }
 
     .content-box {
@@ -77,16 +75,59 @@
     .button-row {
       text-align: right;
       margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
     }
 
-    .button-row button {
-      margin-left: 12px;
+    .password-input {
+      padding: 8px 12px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #bbb;
+      background-color: #fff;
+      width: 120px;
+    }
+
+    .password-input:focus {
+      border-color: #3399ff;
+      box-shadow: 0 0 8px rgba(51, 153, 255, 0.2);
+      outline: none;
+    }
+
+    .action-button {
       padding: 8px 16px;
       font-size: 14px;
       border-radius: 6px;
       border: 1px solid #bbb;
       background-color: #f4f4f4;
       cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .action-button:hover {
+      background-color: #e8e8e8;
+    }
+
+    .action-button.primary {
+      background-color: #3399ff;
+      color: white;
+      border-color: #3399ff;
+    }
+
+    .action-button.primary:hover {
+      background-color: #2980d9;
+    }
+
+    .action-button.danger {
+      background-color: #e74c3c;
+      color: white;
+      border-color: #e74c3c;
+    }
+
+    .action-button.danger:hover {
+      background-color: #c0392b;
     }
 
     .edit-area {
@@ -102,6 +143,7 @@
       border-radius: 6px;
       border: 1px solid #ccc;
       resize: vertical;
+      box-sizing: border-box;
     }
 
     .edit-area textarea:focus {
@@ -141,21 +183,30 @@
     <input type="hidden" name="page" th:value="${currentPage}" />
     <input type="hidden" id="form-content-input" name="content" />
     <div class="edit-area" id="edit-area">
-      <textarea id="edit-textarea"></textarea>
+      <textarea id="edit-textarea" placeholder="내용을 입력하세요..."></textarea>
     </div>
   </form>
 
-  <!-- 버튼 -->
+  <!-- 버튼 영역 -->
   <div class="button-row">
-    <button type="button" onclick="showEdit()">수정</button>
-    <form id="delete-form" method="post" th:action="@{/boards/delete}" style="display: inline;">
-      <input type="hidden" name="id" th:value="${board.id}" />
-      <input type="hidden" name="page" th:value="${currentPage}" />
-      <button type="button" onclick="confirmDelete()">삭제</button>
-    </form>
-    <button type="button" id="save-btn" style="display: none;">저장</button>
-    <button type="button" id="cancel-btn" style="display: none;" onclick="cancelEdit()">취소</button>
-    <button type="button" onclick="location.href='/boards?page=' + [[${currentPage}]]">목록으로</button>
+    <!-- 비밀번호 입력 -->
+    <input type="password" class="password-input" id="password-input" placeholder="비밀번호" />
+
+    <!-- 기본 모드 버튼들 -->
+    <div id="normal-buttons">
+      <button type="button" class="action-button" onclick="showEdit()">수정</button>
+      <form id="delete-form" method="post" th:action="@{/boards/delete}" style="display: inline;">
+        <input type="hidden" name="id" th:value="${board.id}" />
+        <input type="hidden" name="page" th:value="${currentPage}" />
+        <button type="button" class="action-button danger" onclick="confirmDelete()">삭제</button>
+      </form>
+    </div>
+
+    <!-- 수정 모드 버튼들 -->
+    <div id="edit-buttons" style="display: none;">
+      <button type="button" class="action-button primary" id="save-btn">확인</button>
+      <button type="button" class="action-button" id="cancel-btn" onclick="cancelEdit()">취소</button>
+    </div>
   </div>
 
   <!-- 페이지네비게이션 -->
@@ -170,37 +221,98 @@
   const saveBtn = document.getElementById("save-btn");
   const cancelBtn = document.getElementById("cancel-btn");
   const formContentInput = document.getElementById("form-content-input");
+  const normalButtons = document.getElementById("normal-buttons");
+  const editButtons = document.getElementById("edit-buttons");
+  const passwordInput = document.getElementById("password-input");
 
+  // 수정 모드 진입
   function showEdit() {
+    // 비밀번호 확인 (실제 구현에서는 서버 검증 필요)
+    if (passwordInput.value.trim() === "") {
+      alert("비밀번호를 입력하세요.");
+      passwordInput.focus();
+      return;
+    }
+
+    // UI 전환
     editArea.style.display = "block";
     textarea.value = contentBox.innerText.trim();
     contentBox.style.display = "none";
-    saveBtn.style.display = "inline-block";
-    cancelBtn.style.display = "inline-block";
+
+    // 버튼 전환
+    normalButtons.style.display = "none";
+    editButtons.style.display = "flex";
+    editButtons.style.gap = "12px";
+
+    // 텍스트에어리어에 포커스
+    textarea.focus();
   }
 
+  // 수정 취소
   function cancelEdit() {
     editArea.style.display = "none";
     contentBox.style.display = "block";
-    saveBtn.style.display = "none";
-    cancelBtn.style.display = "none";
+
+    // 버튼 전환
+    normalButtons.style.display = "flex";
+    normalButtons.style.gap = "12px";
+    editButtons.style.display = "none";
+
+    // 텍스트에어리어 내용 초기화
+    textarea.value = "";
   }
 
+  // 저장 버튼 클릭
   saveBtn.addEventListener("click", () => {
     const trimmed = textarea.value.trim();
     if (trimmed === "") {
       alert("내용을 입력하세요.");
+      textarea.focus();
       return;
     }
+
+    if (passwordInput.value.trim() === "") {
+      alert("비밀번호를 입력하세요.");
+      passwordInput.focus();
+      return;
+    }
+
     formContentInput.value = trimmed;
     document.getElementById("edit-form").submit();
   });
 
+  // 삭제 확인
   function confirmDelete() {
+    if (passwordInput.value.trim() === "") {
+      alert("비밀번호를 입력하세요.");
+      passwordInput.focus();
+      return;
+    }
+
     if (confirm("정말 삭제하시겠습니까?")) {
       document.getElementById("delete-form").submit();
     }
   }
+
+  // 엔터키 처리
+  passwordInput.addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      // 현재 모드에 따라 적절한 동작 수행
+      if (editButtons.style.display === "none") {
+        // 일반 모드에서는 수정 버튼 클릭
+        showEdit();
+      }
+    }
+  });
+
+  // 텍스트에어리어에서 Ctrl+Enter로 저장
+  textarea.addEventListener("keydown", function(e) {
+    if (e.ctrlKey && e.key === "Enter") {
+      e.preventDefault();
+      saveBtn.click();
+    }
+  });
 </script>
 
 </body>
