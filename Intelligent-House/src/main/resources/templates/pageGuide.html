@@ -1,19 +1,5 @@
-<!-- /templates/pageGuide.html -->
-<!--<div class="pageGuide" th:fragment="pageGuide(pageUrl, boardPage, startPage, endPage, currentPage)">
-  <a th:if="${!boardPage.first}" th:href="@{${pageUrl}(page=0)}">«</a>
-  <a th:if="${startPage >= 10}" th:href="@{${pageUrl}(page=${startPage - 10})}">&lt;</a>
-
-  <span th:each="i : ${#numbers.sequence(startPage, endPage)}">
-        <a th:if="${i != currentPage}" th:href="@{${pageUrl}(page=${i})}" th:text="${i + 1}"></a>
-        <span th:if="${i == currentPage}" th:text="${i + 1}" class="current"></span>
-    </span>
-
-  <a th:if="${endPage + 1 < boardPage.totalPages}" th:href="@{${pageUrl}(page=${startPage + 10})}">&gt;</a>
-  <a th:if="${!boardPage.last}" th:href="@{${pageUrl}(page=${boardPage.totalPages - 1})}">»</a>
-</div>-->
-
-<!-- /templates/pageGuide.html -->
-<div class="pageGuide" th:fragment="pageGuide(pageUrl, boardPage, startPage, endPage, currentPage)">
+<!-- ✅ 새로운 pageGuide (현재 페이지도 클릭 가능) -->
+<div class="pageGuide" th:fragment="pageGuideClickable(pageUrl, boardPage, startPage, endPage, currentPage)">
     <!-- 맨 처음 페이지로 이동 -->
     <a th:if="${!boardPage.first}" th:href="@{${pageUrl}(page=0)}">«</a>
 
@@ -21,15 +7,12 @@
     <a th:if="${startPage >= 10}"
        th:href="@{${pageUrl}(page=${startPage - 10})}">&lt;</a>
 
-    <!-- 페이지 번호 나열 -->
+    <!-- 페이지 번호 나열 (현재 페이지도 클릭 가능) -->
     <span th:each="i : ${#numbers.sequence(startPage, endPage)}">
-    <a th:if="${i != currentPage}"
-       th:href="@{${pageUrl}(page=${i})}"
-       th:text="${i + 1}"></a>
-    <span th:if="${i == currentPage}"
-          th:text="${i + 1}"
-          class="current"></span>
-  </span>
+        <a th:href="@{${pageUrl}(page=${i})}"
+           th:text="${i + 1}"
+           th:class="${i == currentPage ? 'current' : ''}"></a>
+    </span>
 
     <!-- 다음 10페이지로 이동 -->
     <a th:if="${endPage + 1 < boardPage.totalPages}"
@@ -40,20 +23,27 @@
        th:href="@{${pageUrl}(page=${boardPage.totalPages - 1})}">»</a>
 </div>
 
+<!-- content.html에서 게시글 ID를 유지하면서 페이지네이션 (현재 페이지 클릭 가능) -->
+<div class="pageGuide" th:fragment="pageGuideWithIdClickable(pageUrl, boardPage, startPage, endPage, currentPage, boardId)">
+    <!-- 맨 처음 페이지로 이동 -->
+    <a th:if="${!boardPage.first}" th:href="@{${pageUrl}(page=0)}">«</a>
 
-<!-- 기능시도중이나 비정상동작중
-<div th:fragment="pageGuide(baseUrl, boardPage, startPage, endPage, currentPage)">
-  <ul class="pagination">
-    <li th:if="${startPage > 0}">
-      <a th:href="@{${baseUrl}(page=${startPage - 1})}">&laquo;</a>
-    </li>
-    <li th:each="pageNum : ${#numbers.sequence(startPage, endPage)}"
-        th:classappend="${pageNum} == ${currentPage} ? 'active'">
-      <a th:href="@{${baseUrl}(page=${pageNum})}"
-         th:text="${pageNum + 1}"></a>
-    </li>
-    <li th:if="${endPage < boardPage.totalPages - 1}">
-      <a th:href="@{${baseUrl}(page=${endPage + 1})}">&raquo;</a>
-    </li>
-  </ul>
-</div>-->
+    <!-- 이전 10페이지로 이동 -->
+    <a th:if="${startPage >= 10}"
+       th:href="@{${pageUrl}(page=${startPage - 10})}">&lt;</a>
+
+    <!-- 페이지 번호 나열 (현재 페이지도 클릭 가능) -->
+    <span th:each="i : ${#numbers.sequence(startPage, endPage)}">
+        <a th:href="@{${pageUrl}(page=${i})}"
+           th:text="${i + 1}"
+           th:class="${i == currentPage ? 'current' : ''}"></a>
+    </span>
+
+    <!-- 다음 10페이지로 이동 -->
+    <a th:if="${endPage + 1 < boardPage.totalPages}"
+       th:href="@{${pageUrl}(page=${startPage + 10})}">&gt;</a>
+
+    <!-- 마지막 페이지로 이동 -->
+    <a th:if="${!boardPage.last}"
+       th:href="@{${pageUrl}(page=${boardPage.totalPages - 1})}">»</a>
+</div>

@@ -16,7 +16,7 @@
             <div class="meta-top">
                 <span class="date" th:text="${board.occurredDate != null ? #temporals.format(board.occurredDate, 'yyyy년 MM월 dd일') : '날짜 없음'}">2025년 03월 20일</span>
                 &nbsp;
-                <a class="title" th:href="@{/boards/content/{id}(id=${board.id})}"
+                <a class="title" th:href="@{/boards/content/{id}(id=${board.id}, page=${currentPage})}"
                    th:text="${board.title != null ? board.title : '제목 없음'}">제목</a>
             </div>
             <div class="created"
@@ -25,7 +25,7 @@
             </div>
         </div>
         <!-- 기존 pageGuide 삭제 후 아래 코드 삽입 -->
-        <div th:replace="pageGuide :: pageGuide('/boards', ${boardPage}, ${startPage}, ${endPage}, ${currentPage})"></div>
+        <div class="page-guide" th:replace="pageGuide :: pageGuideClickable('/boards', ${boardPage}, ${startPage}, ${endPage}, ${currentPage})"></div>
     </div>
     <script src="/js/load-header.js"></script>
     <script src="/js/side.js"></script>
