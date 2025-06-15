@@ -216,3 +216,30 @@ footer button {
   border-radius: 6px;
   cursor: pointer;
 }
+/* 팝업 박스 자체를 완전 투명하게 */
+#map-action-buttons {
+  background: transparent;
+  border: none;
+  padding: 0;
+  z-index: 1000;
+}
+
+/* 버튼 기본 스타일 */
+#map-action-buttons button {
+  display: block;
+  width: 100px;
+  height: 36px; /* 기존보다 살짝 더 두껍게 */
+  margin: 1px 0;
+  background-color: #000; /* 검은색 배경 */
+  color: #fff;             /* 흰색 텍스트 */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+/* 호버 효과 추가 (선택사항) */
+#map-action-buttons button:hover {
+  background-color: #333;
+}
