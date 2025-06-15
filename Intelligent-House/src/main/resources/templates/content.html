@@ -6,76 +6,135 @@
   <link rel="stylesheet" href="/css/side.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/headerStyle.css">
-  <link rel="stylesheet" href="/css/pageGuide.css">
+  <script src="/js/load-header.js" defer></script>
+  <script src="/js/side.js" defer></script>
   <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #fff;
+    }
+
     .board-box {
-        max-width: 700px;
-        margin: 50px auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 12px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        font-family: 'Segoe UI', sans-serif;
+      width: 100vw;           /* 뷰포트 너비 100% */
+      height: 100vh;          /* 뷰포트 높이 100% */
+      <!--min-width: 320px;-->       /* 근데이거적용하면 좀 이상한거같음 최소 너비(모바일 가독성 확보) */
+      <!--max-width: 900px;-->       /* 최대 너비 제한 할일없을거같긴한데 일단 넣어만둠 */
+      margin: 0 auto 60px auto;
+      padding: 0 20px;
+      box-sizing: border-box; /* 패딩 포함한 크기 계산 */
     }
-    .board-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+
+    h2.section-title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      border-bottom: 3px solid #000;
+      padding-bottom: 6px;
+      text-align: left;
     }
-    .board-title {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 10px;
+
+    .date-title {
+      font-weight: bold;
+      font-size: clamp(12px, 7vw, 16px);
     }
-    .board-meta {
-        color: #888;
-        font-size: 14px;
-        margin-bottom: 20px;
+    .occurred-date{
+      color: #666;
+      font-size: clamp(8px, 4vw, 12px);
     }
-    .board-content {
-        white-space: pre-line;
-        margin-bottom: 30px;
-        font-size: 16px;
+
+    .meta-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2vh;
+      margin-top: 3vh;
     }
+
+    .meta-top {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      <!--height: 50%;-->
+    }
+
+    .meta-bottom {
+      margin-top: 8px;
+      align-self: flex-end; /* 오른쪽 정렬 */
+    }
+
+    .content-box {
+      border-top: 1px solid #aaa;
+      border-bottom: 1px solid #aaa;
+      padding: 24px;
+      font-size: 16px;
+      line-height: 1.6;
+      white-space: pre-line;
+      margin-bottom: 24px;
+    }
+
+    .button-row {
+      text-align: right;
+      margin-bottom: 24px;
+    }
+
+    .button-row button {
+      margin-left: 12px;
+      padding: 8px 16px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #bbb;
+      background-color: #f4f4f4;
+      cursor: pointer;
+    }
+
     .edit-area {
-        display: none;
-        margin-bottom: 20px;
+      display: none;
+      margin-bottom: 24px;
     }
-    .edit-btns button {
-        margin-right: 10px;
-        padding: 8px 14px;
-        font-size: 14px;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
+
+    .edit-area textarea {
+      width: 100%;
+      height: 180px;
+      font-size: 15px;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: vertical;
     }
-    .edit-btns .save { background-color: #4CAF50; color: white; }
-    .edit-btns .cancel { background-color: #f0ad4e; color: white; }
-    .edit-btns .delete { background-color: #d9534f; color: white; }
-    textarea {
-        width: 100%;
-        height: 180px;
-        font-size: 15px;
-        padding: 10px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        resize: vertical;
+
+    .edit-area textarea:focus {
+      border-color: #3399ff;
+      box-shadow: 0 0 8px rgba(51, 153, 255, 0.2);
+      outline: none;
     }
   </style>
 </head>
 <body>
-<div class="board-box">
-  <div class="board-header">
-    <div class="board-title" th:text="${board.title}">제목</div>
-  </div>
-  <div class="board-meta">
-    작성자: <span th:text="${board.writer}">작성자</span> |
-    작성일: <span th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}">날짜</span> |
-    사건일: <span th:text="${#temporals.format(board.occurredDate, 'yyyy-MM-dd')}">사건일</span>
-  </div>
-  <div id="board-content" class="board-content" th:text="${board.content}">본문 내용</div>
 
-  <!-- 수정 폼 -->
+<!-- 전체 콘텐츠 박스 -->
+<div class="board-box">
+
+  <!-- 큰 제목 -->
+  <h2 class="section-title">사건/사고 건물</h2>
+
+  <!-- 작성자/작성일/사건일 -->
+  <div class="meta-row">
+    <div class="meta-top">
+      <span class="date-title">
+        <span th:text="${#temporals.format(board.createdDate, 'yyyy년 MM월 dd일')}"></span>
+        <span th:text="${board.title}"></span>
+      </span>
+    </div>
+    <div class="meta-bottom">
+      <span class="occurred-date" th:text="${#temporals.format(board.occurredDate, 'yyyy년 MM월 dd일')}"></span>
+    </div>
+  </div>
+
+  <!-- 본문 내용 -->
+  <div id="board-content" class="content-box" th:utext="${board.content}">본문 내용</div>
+
+  <!-- 수정 폼 영역 -->
   <form id="edit-form" method="post" th:action="@{/boards/update}">
     <input type="hidden" name="id" th:value="${board.id}" />
     <input type="hidden" name="page" th:value="${currentPage}" />
@@ -85,19 +144,24 @@
     </div>
   </form>
 
-  <div class="edit-btns">
+  <!-- 버튼 -->
+  <div class="button-row">
     <button type="button" onclick="showEdit()">수정</button>
     <form id="delete-form" method="post" th:action="@{/boards/delete}" style="display: inline;">
       <input type="hidden" name="id" th:value="${board.id}" />
       <input type="hidden" name="page" th:value="${currentPage}" />
-      <button type="button" class="delete" onclick="confirmDelete()">삭제</button>
+      <button type="button" onclick="confirmDelete()">삭제</button>
     </form>
-    <button type="button" class="save" id="save-btn" style="display: none;">저장</button>
-    <button type="button" class="cancel" id="cancel-btn" style="display: none;" onclick="cancelEdit()">취소</button>
+    <button type="button" id="save-btn" style="display: none;">저장</button>
+    <button type="button" id="cancel-btn" style="display: none;" onclick="cancelEdit()">취소</button>
+    <button type="button" onclick="location.href='/boards?page=' + [[${currentPage}]]">목록으로</button>
   </div>
+
+  <!-- 페이지네비게이션 -->
+  <div class="page-guide" th:replace="pageGuide :: pageGuide('/boards', ${boardPage}, ${startPage}, ${endPage}, ${currentPage})"></div>
+
 </div>
 
-<div th:replace="pageGuide :: pageGuide('/boards', ${boardPage}, ${startPage}, ${endPage}, ${currentPage})"></div>
 <script>
   const editArea = document.getElementById("edit-area");
   const textarea = document.getElementById("edit-textarea");
@@ -107,40 +171,36 @@
   const formContentInput = document.getElementById("form-content-input");
 
   function showEdit() {
-      editArea.style.display = "block";
-      textarea.value = contentBox.textContent.trim();
-      contentBox.style.display = "none";
-      saveBtn.style.display = "inline-block";
-      cancelBtn.style.display = "inline-block";
+    editArea.style.display = "block";
+    textarea.value = contentBox.innerText.trim();
+    contentBox.style.display = "none";
+    saveBtn.style.display = "inline-block";
+    cancelBtn.style.display = "inline-block";
   }
 
   function cancelEdit() {
-      editArea.style.display = "none";
-      contentBox.style.display = "block";
-      saveBtn.style.display = "none";
-      cancelBtn.style.display = "none";
+    editArea.style.display = "none";
+    contentBox.style.display = "block";
+    saveBtn.style.display = "none";
+    cancelBtn.style.display = "none";
   }
 
   saveBtn.addEventListener("click", () => {
-      const trimmed = textarea.value.trim();
-      if (trimmed === "") {
-          alert("내용을 입력하세요.");
-          return;
-      }
-      formContentInput.value = trimmed;
-      console.log("제출되는 content:", formContentInput.value);
-      document.getElementById("edit-form").submit();
+    const trimmed = textarea.value.trim();
+    if (trimmed === "") {
+      alert("내용을 입력하세요.");
+      return;
+    }
+    formContentInput.value = trimmed;
+    document.getElementById("edit-form").submit();
   });
 
   function confirmDelete() {
-      if (confirm("정말 삭제하시겠습니까?")) {
-          document.getElementById("delete-form").submit();
-      }
+    if (confirm("정말 삭제하시겠습니까?")) {
+      document.getElementById("delete-form").submit();
+    }
   }
 </script>
 
-<script src="/js/load-header.js"></script>
-<script src="/js/side.js"></script>
 </body>
-
 </html>
