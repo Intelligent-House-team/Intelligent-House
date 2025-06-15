@@ -87,7 +87,7 @@
     <div class="post-popup">
         <h2>게시글 등록</h2>
 
-        <form>
+        <form id="post-form">
             <div class="form-group">
                 <label><input type="radio" name="dateKnown" value="known" checked> 정확한 날짜를 알고 있다.</label>
                 <label><input type="radio" name="dateKnown" value="unknown"> 정확한 날짜를 모른다.</label>
@@ -98,9 +98,9 @@
             </div>
             <div id="date-unknown-text" style="display: none; margin-bottom: 12px;">자세한 날짜를 모릅니다.</div>
 
-            <div>
-                <label>국가 및 지역</label>
-                <div>대한민국</div>
+            <div class="input-group">
+                <label for="country">국가</label>
+                <input type="text" id="post-country" value="대한민국" readonly class="form-control">
             </div>
 
             <label style="margin-top: 6px;">주소</label>
