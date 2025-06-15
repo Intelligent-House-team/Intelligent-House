@@ -45,7 +45,7 @@ function closeMessagePopup() {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-  const logoutYesBtn = document.getElementById('logout-yes');
+  const logoutYesBtn = document.getElementById('confirm-logout'); // ← HTML과 동일하게 수정
   if (logoutYesBtn) {
     logoutYesBtn.addEventListener('click', async () => {
       try {
