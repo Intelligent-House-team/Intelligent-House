@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/headerStyle.css">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/post-popup.css">
     <script src="/js/side.js" defer></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6e233d74bf94ac6bba7c8506e320cfa7&libraries=services"></script>
 </head>
@@ -77,7 +78,46 @@
         </div>
     </div>
 </div>
+<div id="map-action-buttons" style="display:none; position:absolute; z-index:1000;">
+    <button id="info-btn">정보</button><br>
+    <button id="post-btn">투고</button>
+</div>
 
+<div id="post-popup-overlay" class="post-popup-overlay">
+    <div class="post-popup">
+        <h2>게시글 등록</h2>
+
+        <form>
+            <div class="form-group">
+                <label><input type="radio" name="dateKnown" value="known" checked> 정확한 날짜를 알고 있다.</label>
+                <label><input type="radio" name="dateKnown" value="unknown"> 정확한 날짜를 모른다.</label>
+            </div>
+
+            <div id="date-input-wrapper">
+                <input type="date" id="post-date" class="form-control short-date">
+            </div>
+            <div id="date-unknown-text" style="display: none; margin-bottom: 12px;">자세한 날짜를 모릅니다.</div>
+
+            <div>
+                <label>국가 및 지역</label>
+                <div>대한민국</div>
+            </div>
+
+            <label style="margin-top: 6px;">주소</label>
+            <input type="text" class="form-control" placeholder="상세 주소를 입력 해주세요">
+
+            <label>투고 내용</label>
+            <textarea class="form-control tall-textarea" placeholder="투고 내용을 입력해 주세요"></textarea>
+
+            <div class="form-actions">
+                <button type="button" id="post-cancel">취소</button>
+                <button type="submit" id="post-submit">등록</button>
+            </div>
+
+            <p class="warning">※ 주의 사항 : 2005년 이전 자료는 등록이 불가합니다.</p>
+        </form>
+    </div>
+</div>
 
 
 <footer>
@@ -95,5 +135,6 @@
 <script src="/js/footer.js" defer></script>
 <script src="/js/popup.js" defer></script>
 <script src="/js/auth.js" defer></script>
+<script src="/js/post-popup.js"></script>
 </body>
 </html>

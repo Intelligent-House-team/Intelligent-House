@@ -56,6 +56,7 @@ html, body {
   display: flex;
   flex-direction: column;
   text-align: left;
+  margin-bottom: 1.2rem; /* 여백이 여기 있음 */
 }
 
 .input-group label {
@@ -108,9 +109,7 @@ html, body {
   font-size: 1.5rem;
   cursor: pointer;
 }
-.input-group {
-  margin-bottom: 1.2rem; /* 여백이 여기 있음 */
-}
+
 /* 하단 푸터 영역 */
 footer {
   height: 60px;
@@ -143,16 +142,19 @@ footer button {
   cursor: pointer;
 }
 
+
 /* 메시지 팝업 (alert 대체용) */
 .message-popup {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 9999;
+  position: fixed;   /* 뷰포트에 고정되어 스크롤되어도 위치 유지 */
+  top: 0;            /* 화면 상단 0에 위치 */
+  left: 0;           /* 화면 좌측 0에 위치 */
+  width: 100vw;      /* 뷰포트 너비 100% */
+  height: 100vh;     /* 뷰포트 높이 100% */
+  display: flex;  /*<-- 이 부분을 제거합니다 (JS에서 class로 제어) */
+  justify-content: center; /* 내부 콘텐츠(메시지 박스)를 가로 중앙 정렬 */
+  align-items: center;   /* 내부 콘텐츠(메시지 박스)를 세로 중앙 정렬 */
+  background-color: rgba(0,0,0,0.5); /* 반투명 배경 (오버레이) */
+  z-index: 9999;     /* 다른 요소들 위에 표시 */
 }
 
 .message-popup.hidden {
@@ -162,30 +164,47 @@ footer button {
 /* 메시지 박스 디자인 */
 .message-box {
   background: white;
-  padding: 2rem 1.5rem;
+  padding: 1.5rem 1rem; /* ▶ padding을 줄여 내부 공간 축소 (2rem 1.5rem -> 1.5rem 1rem) */
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 0 20px rgba(0,0,0,0.3);
-  min-width: 280px;
+  min-width: 250px; /* ▶ 최소 너비를 더 작게 (280px -> 250px) */
+  max-width: 300px;  /* ▶ 최대 너비 설정 (새로 추가) */
+  max-height: 200px; /* ▶ 최대 높이 설정 (새로 추가) */
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  justify-content: center; /* 내부 요소들을 세로 중앙 정렬 */
+  align-items: center; /* 내부 요소들을 가로 중앙 정렬 (텍스트 중앙 정렬 유지) */
+  gap: 1rem; /* ▶ 글자와 버튼 사이 간격 감소 (1.5rem -> 1rem), 더 작아진 크기에 맞게 */
 }
 
+/* 메시지 텍스트 */
 .message-text {
-  font-size: 1rem;
+  font-size: 1.05rem; /* ▶ 글자 크기 약간 더 감소 (1.15rem -> 1.05rem) */
   font-weight: 500;
   color: #333;
 }
 
+/* 메시지 박스 내 버튼 */
 .message-box button {
-  padding: 10px 20px;
+  padding: 7px 15px; /* ▶ 버튼 사이즈 더 작게 (8px 18px -> 7px 15px) */
   background: black;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.9rem; /* ▶ 버튼 폰트 사이즈 더 작게 (0.95rem -> 0.9rem) */
+}
+
+/* 메시지 박스 내 버튼 */
+.message-box button {
+  padding: 8px 18px; /* ▶ 버튼 사이즈 약간 작게 (10px 20px -> 8px 18px) */
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem; /* 버튼 폰트 사이즈도 약간 작게 */
 }
 
 /* 로그아웃 팝업 전용 크기 축소 */
@@ -215,4 +234,32 @@ footer button {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+}
+
+/* 맵 액션 버튼 팝업 */
+#map-action-buttons {
+  background: transparent;
+  border: none;
+  padding: 0;
+  z-index: 1000;
+}
+
+/* 맵 액션 버튼 기본 스타일 */
+#map-action-buttons button {
+  display: block;
+  width: 100px;
+  height: 36px; /* 기존보다 살짝 더 두껍게 */
+  margin: 1px 0;
+  background-color: #000; /* 검은색 배경 */
+  color: #fff;             /* 흰색 텍스트 */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+/* 호버 효과 추가 (선택사항) */
+#map-action-buttons button:hover {
+  background-color: #333;
 }
