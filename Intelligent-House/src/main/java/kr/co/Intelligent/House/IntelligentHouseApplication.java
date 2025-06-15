@@ -5,16 +5,19 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import java.time.LocalDateTime;
 
 @SpringBootApplication
+@EnableTransactionManagement  // 이 어노테이션 추가
 public class IntelligentHouseApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(IntelligentHouseApplication.class, args);
 	}
 
-	// DB 테스트용 코드
+	// DB 테스트용 코드: 정상적으로 동작함
 	/*@Bean
 	public CommandLineRunner initData(BoardRepository repository) {
 		return args -> {

@@ -8,50 +8,55 @@
   <link rel="stylesheet" href="/css/headerStyle.css">
   <link rel="stylesheet" href="/css/pageGuide.css">
   <style>
+    .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        padding-bottom: 10px;
+        margin: 0 4vh 10px 4vh;
+    }
+    .section-underline {
+        border-bottom: 2px solid #000;
+        margin: 0 6vh 30px 6vh;
+    }
     .board-box {
-        max-width: 700px;
-        margin: 50px auto;
+        max-width: 800px;
+        margin: 30px auto;
         padding: 20px;
-        border: 1px solid #ccc;
         border-radius: 12px;
         box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         font-family: 'Segoe UI', sans-serif;
+        background-color: #fff;
     }
-    .board-header {
+    .meta-row {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .meta-top {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .board-title {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    .board-meta {
-        color: #888;
+        justify-content: center;
+        gap: 12px;
         font-size: 14px;
-        margin-bottom: 20px;
+    }
+    .created-date {
+        font-size: 14px;
+        color: #888;
+        margin-top: 6px;
+        text-align: right;
+        margin-right: 4vh;
     }
     .board-content {
         white-space: pre-line;
-        margin-bottom: 30px;
-        font-size: 16px;
+        margin: 20px 4vh 30px 4vh;
+        font-size: 18px;
+        line-height: 1.8;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        padding: 20px 0;
     }
     .edit-area {
         display: none;
-        margin-bottom: 20px;
+        margin: 20px 4vh;
     }
-    .edit-btns button {
-        margin-right: 10px;
-        padding: 8px 14px;
-        font-size: 14px;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-    }
-    .edit-btns .save { background-color: #4CAF50; color: white; }
-    .edit-btns .cancel { background-color: #f0ad4e; color: white; }
-    .edit-btns .delete { background-color: #d9534f; color: white; }
     textarea {
         width: 100%;
         height: 180px;
@@ -61,18 +66,43 @@
         border: 1px solid #ccc;
         resize: vertical;
     }
+    .edit-btns {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .edit-btns button {
+        margin: 0 8px;
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .edit-btns .save { background-color: #4CAF50; color: white; }
+    .edit-btns .cancel { background-color: #f0ad4e; color: white; }
+    .edit-btns .delete { background-color: #d9534f; color: white; }
   </style>
 </head>
 <body>
 <div class="board-box">
-  <div class="board-header">
-    <div class="board-title" th:text="${board.title}">제목</div>
+
+  <!-- 제목 및 밑줄 -->
+  <div class="section-header">
+    <h2 class="section-title">사건/사고 건물</h2>
+    <div class="section-underline"></div>
   </div>
-  <div class="board-meta">
-    작성자: <span th:text="${board.writer}">작성자</span> |
-    작성일: <span th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}">날짜</span> |
-    사건일: <span th:text="${#temporals.format(board.occurredDate, 'yyyy-MM-dd')}">사건일</span>
+
+  <!-- 메타 정보 -->
+  <div class="meta-row">
+    <div class="meta-top">
+      <span class="occurred-date" th:text="${#temporals.format(board.occurredDate, 'yyyy년 MM월 dd일')}">2025년 03월 25일</span>
+      <span class="title" th:text="${board.title}">영진전문대 중간고사 발표사건</span>
+    </div>
+    <div class="created-date" th:text="${#temporals.format(board.createdDate, 'yyyy.MM.dd')}">2025.06.12</div>
   </div>
+
+  <!-- 본문 내용 -->
   <div id="board-content" class="board-content" th:text="${board.content}">본문 내용</div>
 
   <!-- 수정 폼 -->
@@ -85,6 +115,7 @@
     </div>
   </form>
 
+  <!-- 버튼 그룹 -->
   <div class="edit-btns">
     <button type="button" onclick="showEdit()">수정</button>
     <form id="delete-form" method="post" th:action="@{/boards/delete}" style="display: inline;">
@@ -97,7 +128,9 @@
   </div>
 </div>
 
+<!-- 페이지 네비게이션 -->
 <div th:replace="pageGuide :: pageGuide('/boards', ${boardPage}, ${startPage}, ${endPage}, ${currentPage})"></div>
+
 <script>
   const editArea = document.getElementById("edit-area");
   const textarea = document.getElementById("edit-textarea");
@@ -128,7 +161,6 @@
           return;
       }
       formContentInput.value = trimmed;
-      console.log("제출되는 content:", formContentInput.value);
       document.getElementById("edit-form").submit();
   });
 
@@ -142,5 +174,4 @@
 <script src="/js/load-header.js"></script>
 <script src="/js/side.js"></script>
 </body>
-
 </html>

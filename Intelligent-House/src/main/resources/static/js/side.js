@@ -20,7 +20,7 @@ fetch('/sidebar/hiddenSidebar.html')
     // 버튼 없으면 return
     if (!guide1 || !guide2 || !mapDiv || !guideDiv) {
       console.log('필요한 요소 중 일부를 찾지 못했습니다.');
-      if (window.location.pathname !== '/boards'){
+      if (window.location.pathname !== '/boards' || window.location.pathname !== '/content/**'){
         console.error('게시판 페이지가 아닌데 요소를 잃어버림');
         return;
       }

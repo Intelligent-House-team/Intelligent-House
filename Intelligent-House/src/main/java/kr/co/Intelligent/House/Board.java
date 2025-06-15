@@ -37,4 +37,17 @@ public class Board {
 
     public LocalDateTime getOccurredDate() { return occurredDate; }
     public void setOccurredDate(LocalDateTime occurredDate) { this.occurredDate = occurredDate; }
+
+    //디버깅용 코드
+    @Override
+    public String toString() {
+        return "Board{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", writer='" + writer + '\'' +
+                ", createdDate=" + createdDate +
+                ", occurredDate=" + occurredDate +
+                '}';
+    }
 }

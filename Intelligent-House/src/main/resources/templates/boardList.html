@@ -12,36 +12,7 @@
     <div class="section-underline"></div>
 
     <div class="container">
-        <!--<div th:each="board : ${boards}" class="post-item">
-            <div class="date" th:text="${board.occurredDate != null ? #temporals.format(board.occurredDate, 'yyyy년 MM월 dd일') : '날짜 없음'}"> 2025년 03월 20일 </div>
-            <div class="title"> <a th:href="@{/boards/content/{id}(id=${board.id})}" th:text="${board.title}">제목</a> </div>
-            <div class="created" th:text="${board.createdDate != null ? #temporals.format(board.createdDate, 'yyyy.MM.dd') : '미기록'}"> 2025.06.09 </div>
-        </div>-->
-        <!-- 2호게이
         <div th:each="board : ${boards}" class="post-item">
-            <a th:href="@{/boards/content/{id}(id=${board.id})}">
-                <div class="meta-top"th:text="${(board.occurredDate != null ? #temporals.format(board.occurredDate, 'yyyy년 MM월 dd일') : '날짜 없음') + ' ' + (board.title != null ? board.title : '제목 없음')}">
-                    날짜 + 제목
-                </div>
-            </a>
-            <div class="created"
-                 th:text="${board.createdDate != null ? #temporals.format(board.createdDate, 'yyyy.MM.dd') : '미기록'}">
-                작성일
-            </div>
-        </div>-->
-        <!--<div th:each="board : ${boards}" class="post-item">
-            <div class="meta-top">
-                <span class="date" th:text="${board.occurredDate != null ? #temporals.format(board.occurredDate, 'yyyy년 MM월 dd일') : '날짜 없음'}">2025년 03월 20일</span>
-                <a th:href="@{/boards/content/{id}(id=${board.id})}" class="title"
-                   th:text="${board.title != null ? board.title : '제목 없음'}">제목</a>
-            </div>
-            <div class="created"
-                 th:text="${board.createdDate != null ? #temporals.format(board.createdDate, 'yyyy.MM.dd') : '미기록'}">
-                2025.06.09
-            </div>
-        </div>-->
-        <div th:each="board : ${boards}" class="post-item">
-        <!-- 기능시도중이나 비정상동작함 <a th:href="@{'/boards/content/' + ${board.id} + '?page=' + ${currentPage}}">[[${board.title}]]</a>-->
             <div class="meta-top">
                 <span class="date" th:text="${board.occurredDate != null ? #temporals.format(board.occurredDate, 'yyyy년 MM월 dd일') : '날짜 없음'}">2025년 03월 20일</span>
                 &nbsp;
