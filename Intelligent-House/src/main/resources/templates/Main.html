@@ -30,9 +30,10 @@
                 <input type="password" name="password" required />
             </div>
             <div class="action-group">
-                <button type="submit">로그인</button>
+                <button type="submit" id="login-submit">로그인</button>
                 <a href="#" class="signup-link" onclick="switchToSignup()">회원가입</a>
             </div>
+
         </form>
     </div>
 </div>
@@ -59,6 +60,26 @@
         </div>
     </div>
 </div>
+<div id="message-popup" class="message-popup hidden">
+    <div class="message-box">
+        <div id="message-text" class="message-text">알림 메시지</div>
+        <button onclick="closeMessagePopup()">확인</button>
+    </div>
+</div>
+<div id="Logout-PopUp" class="popup-wrapper">
+    <div class="overlay" onclick="closePopup('Logout-PopUp')"></div>
+    <div class="popup-content logout-popup">
+        <button class="close-btn" onclick="closePopup('Logout-PopUp')">&times;</button>
+        <p>로그아웃 하시겠습니까?</p>
+        <div class="logout-buttons">
+            <button id="confirm-logout">네</button>
+            <button onclick="closePopup('Logout-PopUp')">아니요</button>
+        </div>
+    </div>
+</div>
+
+
+
 <footer>
     <input type="text" placeholder="검색어를 입력하세요" id="addressInput">
     <button type="button" id="searchButton">확인</button>

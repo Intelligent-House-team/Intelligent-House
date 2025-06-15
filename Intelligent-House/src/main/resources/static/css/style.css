@@ -1,3 +1,4 @@
+/* 기본 레이아웃 및 전체 화면 설정 */
 html, body {
   margin: 0;
   padding: 0;
@@ -7,14 +8,14 @@ html, body {
   overflow: hidden; /* 스크롤 방지 */
 }
 
-/* 지도 전체 화면 채우기 (푸터 제외) */
+/* 지도 화면 - 푸터 제외한 전체 높이 */
 #map {
   width: 100vw;
-  height: calc(100vh - 60px); /* footer가 60px이라면 */
+  height: calc(100vh - 60px); /* footer 높이를 뺀 나머지 */
   position: relative;
 }
 
-/* 공통 팝업 래퍼 (로그인, 회원가입 모두 사용) */
+/* 공통 팝업 래퍼 - 로그인, 회원가입, 로그아웃 등 */
 .popup-wrapper {
   display: none;
   position: fixed;
@@ -24,22 +25,22 @@ html, body {
   z-index: 1000;
 }
 
-/* 블러처리된 오버레이 */
+/* 로그인 오버레이 배경 */
 #Login-overlay {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px); /* 블러 효과 */
   z-index: 1000;
 }
 
-/* 팝업 콘텐츠 박스 (공통 사용) */
+/* 팝업 공통 콘텐츠 박스 스타일 */
 .popup-content {
   position: relative;
   background: white;
-  width: 600px;
-  min-height: 400px;
+  width: 600px;                /* ▶ 여기 수정 시 팝업 너비 조절 가능 */
+  min-height: 300px;           /* ▶ 여기 수정 시 팝업 높이 조절 가능 */
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 0 30px rgba(0,0,0,0.25);
@@ -50,7 +51,7 @@ html, body {
   z-index: 1001;
 }
 
-/* 입력 그룹 */
+/* 입력 필드 묶음 그룹 */
 .input-group {
   display: flex;
   flex-direction: column;
@@ -71,13 +72,14 @@ html, body {
   width: 100%;
 }
 
-/* 하단 버튼들 */
+/* 하단 버튼 묶음 */
 .action-group {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+/* 로그인/회원가입 버튼 공통 */
 #login-submit,
 #signup-submit {
   padding: 10px 20px;
@@ -89,12 +91,14 @@ html, body {
   font-size: 1rem;
 }
 
+/* 회원가입 링크 스타일 */
 .signup-link {
   text-decoration: none;
   color: #444;
   font-size: 0.9rem;
 }
 
+/* 팝업 닫기 버튼 (우측 상단 X버튼) */
 .close-btn {
   position: absolute;
   top: 10px;
@@ -104,8 +108,10 @@ html, body {
   font-size: 1.5rem;
   cursor: pointer;
 }
-
-/* 푸터 기본 스타일 */
+.input-group {
+  margin-bottom: 1.2rem; /* 여백이 여기 있음 */
+}
+/* 하단 푸터 영역 */
 footer {
   height: 60px;
   background: #f1f1f1;
@@ -117,6 +123,7 @@ footer {
   box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
 }
 
+/* 푸터 내 검색창 */
 footer input[type="text"] {
   padding: 8px;
   font-size: 1rem;
@@ -125,6 +132,7 @@ footer input[type="text"] {
   border-radius: 4px;
 }
 
+/* 푸터 내 버튼 */
 footer button {
   padding: 8px 16px;
   font-size: 1rem;
@@ -132,5 +140,79 @@ footer button {
   color: white;
   border: none;
   border-radius: 4px;
+  cursor: pointer;
+}
+
+/* 메시지 팝업 (alert 대체용) */
+.message-popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 9999;
+}
+
+.message-popup.hidden {
+  display: none;
+}
+
+/* 메시지 박스 디자인 */
+.message-box {
+  background: white;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.message-text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.message-box button {
+  padding: 10px 20px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* 로그아웃 팝업 전용 크기 축소 */
+.logout-popup {
+  max-width: 300px;      /* ▶ 너비 줄이기 */
+  min-height: auto;      /* ▶ 높이 유동적 */
+  padding: 1rem;
+}
+
+.logout-popup p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.logout-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.logout-buttons button {
+  padding: 8px 20px;
+  font-size: 1rem;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
 }

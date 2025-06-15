@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     headerContainer.id = 'header-container';
     document.body.prepend(headerContainer);
 
-    fetch('/header') // 또는 '/header.html' 사용 가능
+    fetch('/header')
         .then(response => {
             if (!response.ok) {
                 return response.text().then(text => { throw new Error(text); });
@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // 1. 타이틀 설정
             const title = 'Intelligent House';
-
             const siteTitle = document.getElementById('site-title');
             if (siteTitle) {
                 siteTitle.textContent = title;
@@ -25,21 +24,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
 
-            // 2. 지도 타입 전환 버튼 로직
+            // 2. 지도 타입 전환 버튼
             const buttons = document.querySelectorAll('#layoutGroup-View .layout-button');
             let currentType = 'map';
 
             buttons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const selectedType = btn.id === 'layout-MapView' ? 'map' : 'sky';
-
                     if (selectedType === currentType) return;
 
-                    // 버튼 시각 상태 갱신
                     buttons.forEach(b => b.classList.remove('selected'));
                     btn.classList.add('selected');
 
-                    // 카카오 지도 타입 변경
                     currentType = selectedType;
                     toggleMapType(currentType);
                     console.log("지도 전환됨: " + currentType);
@@ -58,30 +54,41 @@ document.addEventListener('DOMContentLoaded', function () {
                 );
             }
 
-            // 3. 로그인 버튼 로직
+            // 3. 로그인 버튼 로직 + 로그인 상태 분기
             const loginButton = document.getElementById('LoginBtn');
             if (loginButton) {
-                loginButton.addEventListener('click', () => {
-                    if (typeof openPopup === 'function') {
-                        openPopup('Login-PopUp');
-                    } else {
-                        console.error('openPopup 함수가 정의되지 않았습니다.');
-                    }
-                });
-
-                // 4. 로그인 사용자 닉네임 가져오기
                 fetch('/api/user/nickname')
                     .then(response => response.ok ? response.text() : null)
                     .then(nickname => {
                         if (nickname && nickname !== 'Unauthorized') {
                             loginButton.textContent = nickname;
+
+                            // ✅ 로그인된 경우 → 클릭 시 로그아웃 팝업
+                            loginButton.addEventListener('click', () => {
+                                if (typeof openPopup === 'function') {
+                                    openPopup('Logout-PopUp');
+                                }
+                            });
+
                         } else {
                             loginButton.textContent = '로그인';
+
+                            // ✅ 비로그인 상태 → 클릭 시 로그인 팝업
+                            loginButton.addEventListener('click', () => {
+                                if (typeof openPopup === 'function') {
+                                    openPopup('Login-PopUp');
+                                }
+                            });
                         }
                     })
                     .catch(error => {
                         console.error('닉네임 가져오기 오류:', error);
                         loginButton.textContent = '로그인';
+                        loginButton.addEventListener('click', () => {
+                            if (typeof openPopup === 'function') {
+                                openPopup('Login-PopUp');
+                            }
+                        });
                     });
             }
         })

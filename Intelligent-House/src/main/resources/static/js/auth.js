@@ -29,23 +29,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
                 });
 
-                if (response.ok) { // 로그인 성공 (HTTP 200 OK)
-                    alert('로그인에 성공했습니다!');
-                    // 로그인 팝업 닫기
-                    if (typeof closePopup === 'function') closePopup('Login-PopUp');
+                if (response.status === 401) {
+                    showMessage('아이디 또는 비밀번호가 잘못됐습니다.');
 
-                    // 로그인 성공 후 페이지 새로고침하여 헤더 정보 및 사용자 상태 업데이트
+                } else if (response.ok) {
+                    /*showMessage('로그인에 성공했습니다!');*/
+
+                    if (typeof closePopup === 'function') closePopup('Login-PopUp');
                     window.location.reload();
-                } else {
-                    // 로그인 실패 (HTTP 상태 코드가 200번대가 아닌 경우)
-                    // Spring Security의 기본 실패 응답은 HTML일 수 있으므로,
-                    // 사용자 친화적인 메시지를 직접 표시하거나,
-                    // 백엔드에서 JSON 형태의 오류 메시지를 보내도록 설정할 수 있습니다.
-                    // 현재는 기본 메시지 또는 서버 응답 텍스트를 사용합니다.
-                    const errorText = await response.text(); // 서버 응답 텍스트를 가져옴
-                    console.error('Login failed:', errorText); // 디버깅을 위해 콘솔에 로그
-                    alert('아이디 또는 비밀번호가 잘못됐습니다.'); // 통일된 실패 메시지 팝업
                 }
+
             } catch (error) {
                 console.error('로그인 처리 중 네트워크 오류 발생:', error);
                 alert('로그인 처리 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
@@ -95,7 +88,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
                 if (response.ok) {
-                    alert('회원가입에 성공했습니다!');
+                    showMessage('회원가입에 성공했습니다!');
+
                     if (typeof closePopup === 'function') closePopup('Signup-PopUp');
                     if (typeof openPopup === 'function') openPopup('Login-PopUp');
                 } else {
@@ -104,7 +98,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             } catch (error) {
                 console.error('회원가입 처리 중 네트워크 오류 발생:', error);
-                alert('회원가입 처리 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
+                showMessage('회원가입 처리 중 오류가 발생했습니다. 네트워크 연결을 확인해주세요.');
+
             }
         });
     }
