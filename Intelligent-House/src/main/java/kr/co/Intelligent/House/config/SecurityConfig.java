@@ -29,7 +29,7 @@ public class SecurityConfig {
                                 "/api/signup", "/api/user/nickname",
                                 "/side", "/header",
                                 "/boards", "/boardList.html", "/pageGuide.html", "/pageGuide",
-                                "/update/**", "/delete/**", "/content.html", "/boards/content/**", "/content/**"
+                                "/post", "/update/**", "/delete/**", "/content.html", "/post/content/**", "/content/**"
                         ).permitAll()
                         .anyRequest().permitAll()
                 )
