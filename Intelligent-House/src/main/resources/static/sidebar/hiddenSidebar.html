@@ -1,18 +1,51 @@
-<!-- hiddenSidebar.html.html -->
-<!--
-<head> <link rel="stylesheet" href="/css/side.css"> </head>
-절대 hiddenSidebar.html 안에 <head> 넣으면 안 돼.
-HTML 규칙상,
-<head>는 html 문서에 딱 한 번만 있어야 하고,
-<head>는 side.html 처럼 최초 메인 HTML 파일 안에만 있어야 해.
--->
-<div id="sidebar" class="sidebar">
-    <h2>Hidden 사이드바</h2>
-    <ul>
-        <li><button id="Guide1">게시 방법</button></li>
-        <li><a id="Guide2">재난 시 행동 요령</a></li>
-        <li><a href="#">메뉴 3</a></li>
+<!-- 사이드바 본체 -->
+<div id="sidebar" class="sidebar closed">
+    <!-- 1. 닫기 버튼 -->
+    <div class="sidebar-header">
+        <button id="close-sidebar" class="close-btn">✖</button>
+
+        <!-- 2. SNS 아이콘 -->
+        <div class="sns-icons">
+            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+                <img src="youtube.png" alt="YouTube">
+            </a>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                <img src="instagram.png" alt="Instagram">
+            </a>
+            <a href="https://blog.naver.com" target="_blank" rel="noopener noreferrer">
+                <img src="blog.png" alt="Blog">
+            </a>
+        </div>
+    </div>
+
+    <!-- 3. 주요 메뉴 -->
+    <ul class="menu-list">
+        <li><a href="#">게시 방법</a></li>
+        <li><a href="#">재난 시 대처 방법</a></li>
+        <li><a href="#">사건 / 사고 건물</a></li>
     </ul>
+
+    <!-- 4. 탭 (소식/댓글) -->
+    <div class="tab-menu">
+        <button class="tab active" data-target="news">오늘의 소식</button>
+        <button class="tab" data-target="comments">최신 댓글</button>
+    </div>
+    <div class="tab-content" id="news">
+        <p>2025/04/26 산불 소식</p>
+        <p>2025/04/24 00아파트 건축법 위반</p>
+    </div>
+    <div class="tab-content hidden" id="comments">
+        <p>2025/04/26 "조심해야겠네요."</p>
+        <p>2025/04/24 "이런 건물이 많네요."</p>
+    </div>
+
+    <!-- 5. 하단 광고 -->
+    <div class="sidebar-banner">
+        <img src="banner.jpg" alt="광고 배너">
+    </div>
 </div>
+
+<!-- 사이드바 열기 버튼과 오버레이 -->
+<button id="open-sidebar-button" class="fixed-sidebar-button">≡</button>
 <button id="closeSidebar" class="hidden-button"></button>
 <div id="overlay" class="overlay"></div>
