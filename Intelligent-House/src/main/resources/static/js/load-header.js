@@ -56,41 +56,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // 3. 로그인 버튼 로직 + 로그인 상태 분기
             const loginButton = document.getElementById('LoginBtn');
-            if (loginButton) {
-                fetch('/api/user/nickname')
-                    .then(response => response.ok ? response.text() : null)
-                    .then(nickname => {
-                        if (nickname && nickname !== 'Unauthorized') {
-                            loginButton.textContent = nickname;
+            if (!loginButton) return; // 버튼 없으면 종료
 
-                            // ✅ 로그인된 경우 → 클릭 시 로그아웃 팝업
-                            loginButton.addEventListener('click', () => {
-                                if (typeof openPopup === 'function') {
-                                    openPopup('Logout-PopUp');
-                                }
-                            });
+            // 로그인 상태 확인
+            fetch('/api/user/nickname', { credentials: 'include' })
+            .then(res => {
+              if (!res.ok) throw new Error('Unauthorized');
+              return res.json(); // ✅ JSON으로 파싱
+            })
+            .then(data => {
+              const nickname = data.nickname;
+              loginButton.textContent = nickname;
 
-                        } else {
-                            loginButton.textContent = '로그인';
+              // ✅ 로그인된 경우 → 클릭 시 로그아웃 팝업
+              loginButton.onclick = () => {
+                if (typeof openPopup === 'function') {
+                  openPopup('Logout-PopUp');
+                } else {
+                  console.warn('openPopup 함수가 정의되지 않음');
+                }
+              };
+            })
+            .catch(() => {
+              loginButton.textContent = '로그인';
 
-                            // ✅ 비로그인 상태 → 클릭 시 로그인 팝업
-                            loginButton.addEventListener('click', () => {
-                                if (typeof openPopup === 'function') {
-                                    openPopup('Login-PopUp');
-                                }
-                            });
-                        }
-                    })
-                    .catch(error => {
-                        console.error('닉네임 가져오기 오류:', error);
-                        loginButton.textContent = '로그인';
-                        loginButton.addEventListener('click', () => {
-                            if (typeof openPopup === 'function') {
-                                openPopup('Login-PopUp');
-                            }
-                        });
-                    });
-            }
+              // ✅ 비로그인 상태 → 클릭 시 로그인 팝업
+              loginButton.onclick = () => {
+                if (typeof openPopup === 'function') {
+                  openPopup('Login-PopUp');
+                } else {
+                  console.warn('openPopup 함수가 정의되지 않음');
+                }
+              };
+            });
         })
         .catch(error => {
             console.error('헤더 로딩 실패:', error);

@@ -24,41 +24,36 @@ public class PostSubmissionController {
         try {
             PostSubmission post = new PostSubmission();
 
-            // 사용자 정보
+            // 작성자 정보
             String username = userDetails.getUsername();
             post.setWriterUsername(username);
 
-            // 날짜 처리
+            // 사건 발생일
             if (!request.isUnknownDate() && request.getDate() != null && !request.getDate().isEmpty()) {
                 try {
                     LocalDate parsedDate = LocalDate.parse(request.getDate());
-                    post.setPostDate(parsedDate);
+                    post.setOccurredDate(parsedDate);
                 } catch (Exception e) {
                     System.err.println("❌ 날짜 파싱 오류: " + request.getDate());
                     return;
                 }
             }
 
-            // 기타 필드 설정
+            // 기타 필드
             post.setUnknownDate(request.isUnknownDate());
+            post.setTitle(request.getTitle());
             post.setCountry(request.getCountry());
             post.setAddress(request.getAddress());
             post.setContent(request.getContent());
 
-            // 로그 출력
-            System.out.println("✅ 요청 데이터 수신");
-            System.out.println(" - 작성자: " + username);
-            System.out.println(" - 날짜: " + request.getDate());
-            System.out.println(" - 주소: " + request.getAddress());
-            System.out.println(" - 내용: " + request.getContent());
-
-            // DB 저장
+            // 저장
             repository.save(post);
-            System.out.println("✅ 게시글 등록 성공");
+            System.out.println("✅ 게시글 등록 성공: " + post.getTitle());
 
         } catch (Exception e) {
             System.err.println("❌ 게시글 등록 중 예외 발생:");
-            e.printStackTrace(); // 전체 에러 스택 출력
+            e.printStackTrace();
         }
     }
 }
+

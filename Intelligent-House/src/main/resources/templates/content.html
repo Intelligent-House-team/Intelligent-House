@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title th:text="${board.title}">게시글 상세</title>
+  <title th:text="${post.title}">게시글 상세</title>
   <link rel="stylesheet" href="/css/side.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/headerStyle.css">
@@ -165,21 +165,21 @@
   <div class="meta-row">
     <div class="meta-top">
       <span class="date-title">
-        <span th:text="${#temporals.format(board.createdDate, 'yyyy년 MM월 dd일')}"></span>
-        <span th:text="${board.title}"></span>
+        <span th:text="${post.createdDate != null ? #temporals.format(post.createdDate, 'yyyy년 MM월 dd일') : '미기록'}">2025년 01월 01일</span>
+        <span th:text="${post.title != null ? post.title : '제목 없음'}">제목</span>
       </span>
     </div>
     <div class="meta-bottom">
-      <span class="occurred-date" th:text="${#temporals.format(board.occurredDate, 'yyyy년 MM월 dd일')}"></span>
+      <span class="occurred-date" th:text="${post.occurredDate != null ? #temporals.format(post.occurredDate, 'yyyy년 MM월 dd일') : '날짜 미상'}">날짜 미상</span>
     </div>
   </div>
 
   <!-- 본문 내용 -->
-  <div id="board-content" class="content-box" th:utext="${board.content}">본문 내용</div>
+  <div id="post-content" class="content-box" th:utext="${post.content != null ? post.content : '내용 없음'}">본문 내용</div>
 
   <!-- 수정 폼 영역 -->
-  <form id="edit-form" method="post" th:action="@{/boards/update}">
-    <input type="hidden" name="id" th:value="${board.id}" />
+  <form id="edit-form" method="post" th:action="@{/post/update}">
+    <input type="hidden" name="id" th:value="${post.id}" />
     <input type="hidden" name="page" th:value="${currentPage}" />
     <input type="hidden" id="form-content-input" name="content" />
     <div class="edit-area" id="edit-area">
@@ -195,8 +195,8 @@
     <!-- 기본 모드 버튼들 -->
     <div id="normal-buttons">
       <button type="button" class="action-button" onclick="showEdit()">수정</button>
-      <form id="delete-form" method="post" th:action="@{/boards/delete}" style="display: inline;">
-        <input type="hidden" name="id" th:value="${board.id}" />
+      <form id="delete-form" method="post" th:action="@{/post/delete}" style="display: inline;">
+        <input type="hidden" name="id" th:value="${post.id}" />
         <input type="hidden" name="page" th:value="${currentPage}" />
         <button type="button" class="action-button danger" onclick="confirmDelete()">삭제</button>
       </form>
@@ -209,109 +209,144 @@
     </div>
   </div>
 
-  <!-- 페이지네비게이션 -->
-  <div class="page-guide" th:replace="pageGuide :: pageGuideClickable('/boards', ${boardPage}, ${startPage}, ${endPage}, ${currentPage})"></div>
+  <!-- 페이지네비게이션 - 기존 pageGuide 방식 사용 -->
+  <div class="page-guide" th:replace="pageGuide :: pageGuideClickable('/post', ${postPage}, ${startPage}, ${endPage}, ${currentPage})"></div>
 
 </div>
 
-<script>
+<!--<script>
   const editArea = document.getElementById("edit-area");
   const textarea = document.getElementById("edit-textarea");
-  const contentBox = document.getElementById("board-content");
+  const contentBox = document.getElementById("post-content");
   const saveBtn = document.getElementById("save-btn");
   const cancelBtn = document.getElementById("cancel-btn");
   const formContentInput = document.getElementById("form-content-input");
-  const normalButtons = document.getElementById("normal-buttons");
-  const editButtons = document.getElementById("edit-buttons");
+
+  function showEdit() {
+      editArea.style.display = "block";
+      textarea.value = contentBox.textContent.trim();
+      contentBox.style.display = "none";
+      document.getElementById("normal-buttons").style.display = "none";
+      document.getElementById("edit-buttons").style.display = "inline-block";
+  }
+
+  function cancelEdit() {
+      editArea.style.display = "none";
+      contentBox.style.display = "block";
+      document.getElementById("normal-buttons").style.display = "inline-block";
+      document.getElementById("edit-buttons").style.display = "none";
+  }
+
+  saveBtn.addEventListener("click", () => {
+      const trimmed = textarea.value.trim();
+      if (trimmed === "") {
+          alert("내용을 입력하세요.");
+          return;
+      }
+      formContentInput.value = trimmed;
+      document.getElementById("edit-form").submit();
+  });
+
+  function confirmDelete() {
+      if (confirm("정말 삭제하시겠습니까?")) {
+          document.getElementById("delete-form").submit();
+      }
+  }
+</script>-->
+<!-- content.html의 <script> 부분을 다음으로 교체 -->
+<script>
+  const editArea = document.getElementById("edit-area");
+  const textarea = document.getElementById("edit-textarea");
+  const contentBox = document.getElementById("post-content");
+  const saveBtn = document.getElementById("save-btn");
+  const cancelBtn = document.getElementById("cancel-btn");
+  const formContentInput = document.getElementById("form-content-input");
   const passwordInput = document.getElementById("password-input");
 
-  // 수정 모드 진입
   function showEdit() {
-    // 비밀번호 확인 (실제 구현에서는 서버 검증 필요)
-    if (passwordInput.value.trim() === "") {
-      alert("비밀번호를 입력하세요.");
-      passwordInput.focus();
-      return;
-    }
-
-    // UI 전환
-    editArea.style.display = "block";
-    textarea.value = contentBox.innerText.trim();
-    contentBox.style.display = "none";
-
-    // 버튼 전환
-    normalButtons.style.display = "none";
-    editButtons.style.display = "flex";
-    editButtons.style.gap = "12px";
-
-    // 텍스트에어리어에 포커스
-    textarea.focus();
+      editArea.style.display = "block";
+      textarea.value = contentBox.textContent.trim();
+      contentBox.style.display = "none";
+      document.getElementById("normal-buttons").style.display = "none";
+      document.getElementById("edit-buttons").style.display = "inline-block";
   }
 
-  // 수정 취소
   function cancelEdit() {
-    editArea.style.display = "none";
-    contentBox.style.display = "block";
-
-    // 버튼 전환
-    normalButtons.style.display = "flex";
-    normalButtons.style.gap = "12px";
-    editButtons.style.display = "none";
-
-    // 텍스트에어리어 내용 초기화
-    textarea.value = "";
+      editArea.style.display = "none";
+      contentBox.style.display = "block";
+      document.getElementById("normal-buttons").style.display = "inline-block";
+      document.getElementById("edit-buttons").style.display = "none";
+      passwordInput.value = ""; // 비밀번호 초기화
   }
 
-  // 저장 버튼 클릭
   saveBtn.addEventListener("click", () => {
-    const trimmed = textarea.value.trim();
-    if (trimmed === "") {
-      alert("내용을 입력하세요.");
-      textarea.focus();
-      return;
-    }
+      const trimmed = textarea.value.trim();
+      const password = passwordInput.value.trim();
 
-    if (passwordInput.value.trim() === "") {
-      alert("비밀번호를 입력하세요.");
-      passwordInput.focus();
-      return;
-    }
+      if (trimmed === "") {
+          alert("내용을 입력하세요.");
+          return;
+      }
 
-    formContentInput.value = trimmed;
-    document.getElementById("edit-form").submit();
+      if (password === "") {
+          alert("비밀번호를 입력하세요.");
+          passwordInput.focus();
+          return;
+      }
+
+      // 수정 폼에 비밀번호 추가
+      const editForm = document.getElementById("edit-form");
+      let passwordField = editForm.querySelector('input[name="password"]');
+      if (!passwordField) {
+          passwordField = document.createElement('input');
+          passwordField.type = 'hidden';
+          passwordField.name = 'password';
+          editForm.appendChild(passwordField);
+      }
+      passwordField.value = password;
+
+      formContentInput.value = trimmed;
+      editForm.submit();
   });
 
-  // 삭제 확인
   function confirmDelete() {
-    if (passwordInput.value.trim() === "") {
-      alert("비밀번호를 입력하세요.");
-      passwordInput.focus();
-      return;
-    }
+      const password = passwordInput.value.trim();
 
-    if (confirm("정말 삭제하시겠습니까?")) {
-      document.getElementById("delete-form").submit();
-    }
+      if (password === "") {
+          alert("삭제하려면 비밀번호를 입력하세요.");
+          passwordInput.focus();
+          return;
+      }
+
+      if (confirm("정말 삭제하시겠습니까?")) {
+          // 삭제 폼에 비밀번호 추가
+          const deleteForm = document.getElementById("delete-form");
+          let passwordField = deleteForm.querySelector('input[name="password"]');
+          if (!passwordField) {
+              passwordField = document.createElement('input');
+              passwordField.type = 'hidden';
+              passwordField.name = 'password';
+              deleteForm.appendChild(passwordField);
+          }
+          passwordField.value = password;
+
+          deleteForm.submit();
+      }
   }
 
-  // 엔터키 처리
-  passwordInput.addEventListener("keypress", function(e) {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      // 현재 모드에 따라 적절한 동작 수행
-      if (editButtons.style.display === "none") {
-        // 일반 모드에서는 수정 버튼 클릭
-        showEdit();
+  // 성공/에러 메시지 표시 (필요시)
+  document.addEventListener('DOMContentLoaded', function() {
+      // 성공 메시지 표시
+      const successMsg = /*[[${success}]]*/ null;
+      if (successMsg) {
+          alert(successMsg);
       }
-    }
-  });
 
-  // 텍스트에어리어에서 Ctrl+Enter로 저장
-  textarea.addEventListener("keydown", function(e) {
-    if (e.ctrlKey && e.key === "Enter") {
-      e.preventDefault();
-      saveBtn.click();
-    }
+      // 에러 메시지 표시
+      const errorMsg = /*[[${error}]]*/ null;
+      if (errorMsg) {
+          alert(errorMsg);
+      }
   });
 </script>
 

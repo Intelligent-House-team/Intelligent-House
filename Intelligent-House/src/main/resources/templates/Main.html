@@ -99,15 +99,19 @@
             <div id="date-unknown-text" style="display: none; margin-bottom: 12px;">자세한 날짜를 모릅니다.</div>
 
             <div class="input-group">
-                <label for="country">국가</label>
+                <label for="post-country">국가</label>
                 <input type="text" id="post-country" value="대한민국" readonly class="form-control">
             </div>
 
             <label style="margin-top: 6px;">주소</label>
-            <input type="text" class="form-control" placeholder="상세 주소를 입력 해주세요">
+            <input type="text" id="post-address" class="form-control" placeholder="상세 주소를 입력 해주세요">
+
+            <label for="post-title">투고 제목</label>
+            <input type="text" id="post-title" class="form-control" placeholder="투고 제목을 입력해주세요" required>
+
 
             <label>투고 내용</label>
-            <textarea class="form-control tall-textarea" placeholder="투고 내용을 입력해 주세요"></textarea>
+            <textarea id="post-content" class="form-control tall-textarea" placeholder="투고 내용을 입력해 주세요"></textarea>
 
             <div class="form-actions">
                 <button type="button" id="post-cancel">취소</button>
