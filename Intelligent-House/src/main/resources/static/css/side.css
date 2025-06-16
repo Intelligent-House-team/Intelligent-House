@@ -43,7 +43,7 @@
 
 /* 사이드바 열리면 버튼도 이동 */
 .hidden-button.open {
-  transform: translateY(-5%) translateX(calc(-1 * var(--fixed-sidebar-width)));
+  transform: translateY(-5%) translateX(calc(-1 * var(--hidden-sidebar-width)));
   opacity: 1;
   pointer-events: auto;
 }
@@ -82,6 +82,21 @@
 }
 #sidebarButton:hover {
   opacity: 0.8;
+}
+/* news */
+#news p {
+  white-space: nowrap;        /* 한 줄로 유지 */
+  overflow: hidden;           /* 넘치는 텍스트 숨김 */
+  text-overflow: ellipsis;    /* ... 으로 표시 */
+  width: 100%;                /* 부모 너비 기준으로 적용됨 */
+  display: block;             /* 줄 바꿈 가능하게 함 */
+}
+#comments p {
+  white-space: nowrap;        /* 한 줄로 유지 */
+  overflow: hidden;           /* 넘치는 텍스트 숨김 */
+  text-overflow: ellipsis;    /* ... 으로 표시 */
+  width: 100%;                /* 부모 너비 기준으로 적용됨 */
+  display: block;             /* 줄 바꿈 가능하게 함 */
 }
 
 /* 오버레이 스타일 */

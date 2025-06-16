@@ -5,11 +5,18 @@ import kr.co.Intelligent.House.dto.PostSubmissionRequest;
 import kr.co.Intelligent.House.repository.PostSubmissionRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/post")
@@ -54,6 +61,32 @@ public class PostSubmissionController {
             System.err.println("❌ 게시글 등록 중 예외 발생:");
             e.printStackTrace();
         }
+    }
+
+    @GetMapping("/latest")
+    @ResponseBody
+    public  java.util.List<Map<String, String>> getLatestPosts() {
+        Pageable pageable = PageRequest.of(0, 5, Sort.by("createdDate").descending());
+        java.util.List<PostSubmission> posts = repository.findAll(pageable).getContent();
+
+        java.util.List<Map<String, String>> result = new ArrayList<>();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
+        for (PostSubmission post : posts) {
+            Map<String, String> map = new HashMap<>();
+
+            String date = (post.getOccurredDate() != null)
+                    ? post.getOccurredDate().format(formatter)
+                    : "날짜 미상";
+
+            String title = (post.getTitle() != null) ? post.getTitle() : "제목 없음";
+
+            map.put("text", date + " " + title);
+            result.add(map);
+        }
+
+        return result;
     }
 }
 

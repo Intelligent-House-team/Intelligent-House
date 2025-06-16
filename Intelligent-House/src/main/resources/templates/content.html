@@ -307,6 +307,7 @@
 
       formContentInput.value = trimmed;
       editForm.submit();
+      window.loadLatestNewsToSidebar();
   });
 
   function confirmDelete() {
@@ -331,6 +332,7 @@
           passwordField.value = password;
 
           deleteForm.submit();
+          window.loadLatestNewsToSidebar();
       }
   }
 

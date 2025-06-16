@@ -30,9 +30,16 @@
         <button class="tab active" data-target="news">오늘의 소식</button>
         <button class="tab" data-target="comments">최신 댓글</button>
     </div>
-    <div class="tab-content" id="news">
+    <!--<div class="tab-content" id="news">
         <p>2025/04/26 산불 소식</p>
         <p>2025/04/24 00아파트 건축법 위반</p>
+    </div>-->
+    <div class="tab-content" id="news">
+        <div th:each="post : ${posts}">
+            <p th:text="${post.occurredDate != null ? #temporals.format(post.occurredDate, 'yyyy/MM/dd') : '날짜 미상'} + ' ' + (post.title != null ? post.title : '제목 없음')">
+                2025/04/26 산불 소식
+            </p>
+        </div>
     </div>
     <div class="tab-content hidden" id="comments">
         <p>2025/04/26 "조심해야겠네요."</p>

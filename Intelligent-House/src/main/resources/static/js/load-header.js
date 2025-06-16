@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 siteTitle.style.cursor = 'pointer';
                 siteTitle.addEventListener('click', () => {
                     window.location.href = '/';
+                    window.loadLatestNewsToSidebar();
                 });
             }
 

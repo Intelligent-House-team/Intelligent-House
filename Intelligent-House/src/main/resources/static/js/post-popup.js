@@ -94,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             popupOverlay.style.display = 'none';
             postForm.reset();
             openMessagePopup("게시글이 등록되었습니다.");
+            window.loadLatestNewsToSidebar();
           } else if (response.status === 401) {
             openMessagePopup("로그인 후 등록이 가능합니다.");
           } else {

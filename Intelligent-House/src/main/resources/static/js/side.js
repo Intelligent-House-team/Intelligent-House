@@ -71,6 +71,26 @@ function isBoardPage() {
          window.location.pathname.startsWith('/content/') ||
          window.location.pathname.startsWith('/post/');
 }
+// ✅ 외부에서 재호출 가능하게 함수 분리
+window.loadLatestNewsToSidebar = function () {
+  fetch('/api/post/latest')
+    .then(res => res.json())
+    .then(data => {
+      const newsContainer = document.getElementById('news');
+      if (!newsContainer) return;
+
+      newsContainer.innerHTML = ''; // 초기화
+
+      data.forEach(item => {
+        const p = document.createElement('p');
+        p.textContent = item.text;
+        newsContainer.appendChild(p);
+      });
+    })
+    .catch(err => {
+      console.error('오늘의 소식 불러오기 실패:', err);
+    });
+};
 
 // URL 파라미터에서 가이드 모드 확인
 function checkGuideMode() {
@@ -155,6 +175,7 @@ fetch('/sidebar/hiddenSidebar.html')
 
     // 탭 기능 초기화
     initializeTabs();
+    window.loadLatestNewsToSidebar(); // ✅ 오늘의 소식 로딩
 
     // 히든 사이드바 열기 함수
     function openHiddenSidebar() {
