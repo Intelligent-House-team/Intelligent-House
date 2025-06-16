@@ -1,10 +1,54 @@
-<!-- fixedSidebar.html -->
-<div id="fixed-sidebar" class="fixed-sidebar closed">
-    <h2>고정형 사이드바</h2>
-    <ul>
-        <li><a href="#">고정 메뉴 1</a></li>
-        <li><a href="#">고정 메뉴 2</a></li>
-        <li><a href="#">고정 메뉴 3</a></li>
-    </ul>
-</div>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>고정형 사이드바</title>
+    <link rel="stylesheet" href="../css/fixedSidebar.css">
+</head>
+<body>
+<!-- 사이드바 버튼 -->
 <button id="fixed-sidebar-button" class="fixed-sidebar-button">≡</button>
+
+<!-- 사이드바 본체 -->
+<div id="fixed-sidebar" class="fixed-sidebar closed">
+    <!-- 1. 닫기 버튼 -->
+    <div class="sidebar-header">
+        <button id="close-sidebar" class="close-btn">✖</button>
+        <!-- 2. SNS 아이콘 -->
+        <div class="sns-icons">
+            <a href="#"><img src="youtube.png" alt="YouTube"></a>
+            <a href="#"><img src="instagram.png" alt="Instagram"></a>
+            <a href="#"><img src="blog.png" alt="Blog"></a>
+        </div>
+    </div>
+
+    <!-- 3. 주요 메뉴 -->
+    <ul class="menu-list">
+        <li><a href="#">게시 방법</a></li>
+        <li><a href="#">재난 시 대처 방법</a></li>
+        <li><a href="#">사건 / 사고 건물</a></li>
+    </ul>
+
+    <!-- 4. 탭 (소식/댓글) -->
+    <div class="tab-menu">
+        <button class="tab active" data-target="news">오늘의 소식</button>
+        <button class="tab" data-target="comments">최신 댓글</button>
+    </div>
+    <div class="tab-content" id="news">
+        <p>2025/04/26 산불 소식</p>
+        <p>2025/04/24 00아파트 건축법 위반</p>
+    </div>
+    <div class="tab-content hidden" id="comments">
+        <p>2025/04/26 "조심해야겠네요."</p>
+        <p>2025/04/24 "이런 건물이 많네요."</p>
+    </div>
+
+    <!-- 5. 하단 광고 -->
+    <div class="sidebar-banner">
+        <img src="banner.jpg" alt="광고 배너">
+    </div>
+</div>
+
+<script src="../js/fixedSidebar.js"></script>
+</body>
+</html>

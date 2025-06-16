@@ -1,0 +1,126 @@
+.fixed-sidebar {
+  width: 300px;
+  height: 100%;
+  background-color: #1e1e1e;
+  color: white;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1000;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.fixed-sidebar.closed {
+  transform: translateX(100%);
+}
+
+.fixed-sidebar-button {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  z-index: 1001;
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.close-button {
+  text-align: right;
+  font-size: 20px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.sns-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.sns-buttons img {
+  width: 30px;
+  height: 30px;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.menu-list li {
+  margin-bottom: 10px;
+}
+
+.menu-list a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.tab-menu {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.tab.active {
+  background-color: #555;
+  border-bottom: 2px solid yellow;
+}
+
+.tab-content {
+  margin-bottom: 20px;
+}
+
+.tab-content.hidden {
+  display: none;
+}
+
+.sidebar-banner {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.sidebar-banner img {
+  width: 100%;
+  max-width: 260px;
+  border-radius: 8px;
+}
+
+.fixed-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background: #222;
+  color: white;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+/* 시작 시 오른쪽으로 숨기기 */
+.fixed-sidebar.closed {
+  transform: translateX(100%);
+}
+
+/* 보이게 할 때는 제자리 */
+.fixed-sidebar.open {
+  transform: translateX(0);
+}
