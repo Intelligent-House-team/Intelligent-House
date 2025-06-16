@@ -115,12 +115,10 @@
   z-index: 1000;
 }
 
-/* 시작 시 오른쪽으로 숨기기 */
 .fixed-sidebar.closed {
   transform: translateX(100%);
 }
 
-/* 보이게 할 때는 제자리 */
 .fixed-sidebar.open {
   transform: translateX(0);
 }

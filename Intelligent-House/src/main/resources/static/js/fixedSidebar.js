@@ -1,23 +1,23 @@
-const sidebar = document.getElementById('fixed-sidebar');
-const openBtn = document.getElementById('fixed-sidebar-button');
-const closeBtn = document.getElementById('close-sidebar');
+document.addEventListener('DOMContentLoaded', () => {
+  const sidebar = document.getElementById('fixed-sidebar');
+  const openBtn = document.getElementById('fixed-sidebar-button');
+  const closeBtn = document.getElementById('close-sidebar');
 
-// 열기 버튼
-if (openBtn && sidebar) {
-  openBtn.addEventListener('click', () => {
-    sidebar.classList.add('open');
-    sidebar.classList.remove('closed');
-  });
-}
+  // 열기 버튼
+  if (openBtn && sidebar) {
+    openBtn.addEventListener('click', () => {
+      sidebar.classList.add('open');
+      sidebar.classList.remove('closed');
+    });
+  }
 
-// 닫기 버튼
-if (closeBtn && sidebar) {
-  closeBtn.addEventListener('click', () => {
-    sidebar.classList.remove('open');
-    sidebar.classList.add('closed');
-  });
-}
-
+  // 닫기 버튼
+  if (closeBtn && sidebar) {
+    closeBtn.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      sidebar.classList.add('closed');
+    });
+  }
 
   // 탭 전환 기능
   const tabs = document.querySelectorAll('.tab');
@@ -35,4 +35,3 @@ if (closeBtn && sidebar) {
       }
     });
   });
-});
