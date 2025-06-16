@@ -43,7 +43,7 @@
 
 /* 사이드바 열리면 버튼도 이동 */
 .hidden-button.open {
-  transform: translateY(-5%) translateX(calc(-1 * var(--fixed-sidebar-width)));
+  transform: translateY(-5%) translateX(calc(-1.35 * var(--fixed-sidebar-width)));
   opacity: 1;
   pointer-events: auto;
 }
