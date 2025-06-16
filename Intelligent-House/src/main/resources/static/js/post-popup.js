@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const dateRadios = document.querySelectorAll('input[name="dateKnown"]');
   const postForm = popupOverlay.querySelector('form');
 
-  // ✅ "투고" 버튼 클릭 시 로그인 여부 확인
+  // ✅ "투고" 버튼 클릭 시 로그인 여부 확인 (기존 코드 유지)
   if (postBtn) {
     postBtn.addEventListener('click', () => {
       fetch('/api/user/nickname', {
@@ -29,12 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 로그인 후 popup 자동 실행 방지 처리
-  const autoPost = sessionStorage.getItem('autoPost');
-  if (autoPost === 'true') {
-    sessionStorage.removeItem('autoPost');
-    if (postBtn) postBtn.click();
-  }
+  // ❌ 로그인 후 자동 팝업 기능 제거 (이 부분 삭제)
+  // const autoPost = sessionStorage.getItem('autoPost');
+  // if (autoPost === 'true') {
+  //   sessionStorage.removeItem('autoPost');
+  //   if (postBtn) postBtn.click();
+  // }
 
   // ✅ "취소" 버튼 → 팝업 닫기
   if (cancelBtn) {
@@ -115,6 +115,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// ✅ 우클릭 메뉴에서 "투고" 버튼 클릭 시 호출되는 함수
+function openPostSubmissionPopup() {
+  // 로그인 상태 확인
+  fetch('/api/user/nickname', {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then(res => {
+      if (!res.ok) throw new Error('Unauthorized');
+      return res.json();
+    })
+    .then(() => {
+      // 로그인 상태면 투고 팝업 열기
+      const popupOverlay = document.getElementById('post-popup-overlay');
+      if (popupOverlay) {
+        popupOverlay.style.display = 'flex';
+      }
+    })
+    .catch(() => {
+      // 비로그인 상태면 로그인 요청 메시지
+      openMessagePopup("로그인 후 투고 가능합니다.");
+    });
+}
 
 // ✅ 메시지 팝업 열기 함수
 function openMessagePopup(message) {

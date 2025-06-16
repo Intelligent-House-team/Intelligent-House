@@ -39,7 +39,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 } else if (response.ok) {
                     /*showMessage('로그인에 성공했습니다!');*/
-                    sessionStorage.setItem('autoPost', 'true'); // ✅ 다음 페이지 로드 시 1회 팝업
+                    // ❌ 자동 팝업 기능 제거 (이 줄 삭제)
+                    // sessionStorage.setItem('autoPost', 'true');
+
                     if (typeof closePopup === 'function') closePopup('Login-PopUp');
                     window.location.reload();
                 }
