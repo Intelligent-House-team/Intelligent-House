@@ -13,6 +13,25 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(html => {
             headerContainer.innerHTML = html;
 
+            // header가 로드된 후 조건에 따라 요소 숨기기 실행
+            const isGuide3Page = window.location.search.includes('guide=3');
+            const isPostListPage = window.location.pathname === '/post';
+            const isPostContentPage = window.location.pathname.startsWith('/post/content/');
+
+            if (isGuide3Page || isPostListPage || isPostContentPage) {
+              const mapBtn = document.getElementById('layout-MapView');
+              const skyBtn = document.getElementById('layout-SkyView');
+
+              if (mapBtn) {
+                mapBtn.style.visibility = 'hidden';
+                mapBtn.style.pointerEvents = 'none';
+              }
+              if (skyBtn) {
+                skyBtn.style.visibility = 'hidden';
+                skyBtn.style.pointerEvents = 'none';
+              }
+            }
+
             // 1. 타이틀 설정
             const title = 'Intelligent House';
             const siteTitle = document.getElementById('site-title');

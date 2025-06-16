@@ -28,6 +28,21 @@ function findHeaderButtonWithRetry(maxRetries = 10, delay = 500) {
   });
 }
 
+// 해더 하단의 버튼 숨기는 함수
+function hideHeaderAndFooterElements() {
+      const header = document.getElementById('layoutGroup-View');
+      const footer = document.querySelector('footer');
+
+      if (header) {
+        header.style.visibility = 'hidden';
+        header.style.pointerEvents = 'none';
+      }
+      if (footer) {
+        footer.style.visibility = 'hidden';
+        footer.style.pointerEvents = 'none';
+      }
+    }
+
 // 가이드 요소 찾기 재시도 함수
 function findGuideElementsWithRetry(maxRetries = 10, delay = 500) {
   return new Promise((resolve, reject) => {
@@ -99,40 +114,22 @@ function checkGuideMode() {
 }
 
 // 가이드 실행 함수들
-function executeGuide1(mapDiv, guideDiv, footer, header, closeHiddenSidebar) {
+function executeGuide1(mapDiv, guideDiv, closeHiddenSidebar) {
   mapDiv.style.display = 'none';
   guideDiv.style.display = 'block';
   guideDiv.style.backgroundImage = "url('/images/Youtube.jpg')";
   guideDiv.style.backgroundSize = "cover";
   guideDiv.style.backgroundPosition = "center";
 
-  if (footer) {
-    footer.style.visibility = 'hidden';
-    footer.style.pointerEvents = 'none';
-  }
-  if (header) {
-    header.style.visibility = 'hidden';
-    header.style.pointerEvents = 'none';
-  }
-
   closeHiddenSidebar();
 }
 
-function executeGuide2(mapDiv, guideDiv, footer, header, closeHiddenSidebar) {
+function executeGuide2(mapDiv, guideDiv, closeHiddenSidebar) {
   mapDiv.style.display = 'none';
   guideDiv.style.display = 'block';
   guideDiv.style.backgroundImage = "url('/images/HouseIcon.png')";
   guideDiv.style.backgroundSize = "cover";
   guideDiv.style.backgroundPosition = "center";
-
-  if (footer) {
-    footer.style.visibility = 'hidden';
-    footer.style.pointerEvents = 'none';
-  }
-  if (header) {
-    header.style.visibility = 'hidden';
-    header.style.pointerEvents = 'none';
-  }
 
   closeHiddenSidebar();
 }
@@ -161,6 +158,14 @@ function initializeTabs() {
     });
   });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (
+    window.location.pathname.startsWith('/post/content/') || urlParams.get('guide') === '3') {
+    hideHeaderAndFooterElements();  // ✅ 상세 페이지 or Guide3 클릭 후 게시판에서 숨김 처리
+  }
+});
 
 // 1. hiddenSidebar.html 불러오기
 fetch('/sidebar/hiddenSidebar.html')
@@ -234,12 +239,14 @@ fetch('/sidebar/hiddenSidebar.html')
 
           // Guide1 클릭 - 메인 페이지에서
           guide1.addEventListener('click', () => {
-            executeGuide1(mapDiv, guideDiv, footer, header, closeHiddenSidebar);
+            executeGuide1(mapDiv, guideDiv, closeHiddenSidebar);
+            hideHeaderAndFooterElements();
           });
 
           // Guide2 클릭 - 메인 페이지에서
           guide2.addEventListener('click', () => {
-            executeGuide2(mapDiv, guideDiv, footer, header, closeHiddenSidebar);
+            executeGuide2(mapDiv, guideDiv,closeHiddenSidebar);
+            hideHeaderAndFooterElements();
           });
 
           // Guide3 클릭 - 메인 페이지에서도 동작하도록 추가
@@ -247,8 +254,8 @@ fetch('/sidebar/hiddenSidebar.html')
           if (guide3) {
             guide3.addEventListener('click', (e) => {
               e.preventDefault();
-              console.log('Guide3(사건/사고 건물) 클릭 - 게시판으로 이동 (루트 페이지)');
-              window.location.href = 'http://localhost:8081/post';
+              console.log('Guide3 클릭 - 게시판으로 이동');
+              window.location.href = '/post?guide=3';  // ✅ guide 파라미터 붙임
             });
           }
 
