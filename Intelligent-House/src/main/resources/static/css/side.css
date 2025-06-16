@@ -12,7 +12,7 @@
   transform: translateX(100%); /* 오른쪽으로 밀려 있어 안 보임 */
   top: 0;
   right: 0;
-  background-color: #111;
+  background-color: rgba(17, 17, 17, 0.5); /* 반투명 적용 */
   overflow-x: hidden;
   text-align: center;
   color: white;
