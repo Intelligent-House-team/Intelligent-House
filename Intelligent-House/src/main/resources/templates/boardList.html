@@ -1,33 +1,37 @@
-    <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="/css/headerStyle.css">
-        <link rel="stylesheet" href="/css/side.css">
-        <link rel="stylesheet" href="/css/board.css">
-        <link rel="stylesheet" href="/css/pageGuide.css">
-    </head>
-    <body>
-    <h2 class="section-title">사건 / 사고 건물</h2>
-    <div class="section-underline"></div>
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 목록</title>
+    <link rel="stylesheet" href="/css/headerStyle.css">
+    <link rel="stylesheet" href="/css/side.css">
+    <link rel="stylesheet" href="/css/board.css">
+    <link rel="stylesheet" href="/css/pageGuide.css">
+</head>
+<body>
+<h2 class="section-title">사건 / 사고 건물</h2>
+<div class="section-underline"></div>
 
-    <div class="container">
-        <div th:each="board : ${boards}" class="post-item">
-            <div class="meta-top">
-                <span class="date" th:text="${board.occurredDate != null ? #temporals.format(board.occurredDate, 'yyyy년 MM월 dd일') : '날짜 없음'}">2025년 03월 20일</span>
-                &nbsp;
-                <a class="title" th:href="@{/boards/content/{id}(id=${board.id}, page=${currentPage})}"
-                   th:text="${board.title != null ? board.title : '제목 없음'}">제목</a>
-            </div>
-            <div class="created"
-                 th:text="${board.createdDate != null ? #temporals.format(board.createdDate, 'yyyy.MM.dd') : '미기록'}">
-                2025.06.09
-            </div>
+<div class="container">
+    <!-- posts로 변경 (Controller에서 posts로 전달하므로) -->
+    <div th:each="post : ${posts}" class="post-item">
+        <div class="meta-top">
+            <span class="date" th:text="${post.occurredDate != null ? #temporals.format(post.occurredDate, 'yyyy년 MM월 dd일') : '날짜 미상'}">2025년 03월 20일</span>
+            &nbsp;
+            <a class="title" th:href="@{/post/content/{id}(id=${post.id}, page=${currentPage})}"
+               th:text="${post.title != null ? post.title : '제목 없음'}">제목</a>
         </div>
-        <!-- 기존 pageGuide 삭제 후 아래 코드 삽입 -->
-        <div class="page-guide" th:replace="pageGuide :: pageGuideClickable('/boards', ${boardPage}, ${startPage}, ${endPage}, ${currentPage})"></div>
+        <div class="created"
+             th:text="${post.createdDate != null ? #temporals.format(post.createdDate, 'yyyy.MM.dd') : '미기록'}">
+            2025.06.09
+        </div>
     </div>
-    <script src="/js/load-header.js"></script>
-    <script src="/js/side.js"></script>
-    </body>
-    </html>
+
+    <!-- 페이지네이션 -->
+    <div class="page-guide" th:replace="pageGuide :: pageGuideClickable('/post', ${postPage}, ${startPage}, ${endPage}, ${currentPage})"></div>
+</div>
+
+<script src="/js/load-header.js"></script>
+<script src="/js/side.js"></script>
+</body>
+</html>

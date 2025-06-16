@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -21,7 +22,7 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/api/user/nickname")
+    /*@GetMapping("/api/user/nickname")
     public ResponseEntity<String> getUserNickname() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String)) {
@@ -33,5 +34,18 @@ public class UserController {
             }
         }
         return ResponseEntity.status(401).body("Unauthorized"); // 인증되지 않은 경우
+    }*/
+    @GetMapping("/api/user/nickname")
+    public ResponseEntity<?> getUserNickname() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String)) {
+            String username = authentication.getName();
+            Optional<User> user = userRepository.findByUsername(username);
+            if (user.isPresent()) {
+                // ✅ JSON 응답으로 감싸기
+                return ResponseEntity.ok(Map.of("nickname", user.get().getNickname()));
+            }
+        }
+        return ResponseEntity.status(401).body(Map.of("error", "Unauthorized")); // ← 이것도 JSON으로 통일
     }
 }

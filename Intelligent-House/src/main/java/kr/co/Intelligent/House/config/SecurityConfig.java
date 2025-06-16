@@ -6,6 +6,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 public class SecurityConfig {
@@ -14,6 +19,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
+                .cors(cors -> {
+                    cors.configurationSource(corsConfigurationSource());
+                })
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/", "/login", "/logout", "/favicon.ico",
@@ -28,6 +36,10 @@ public class SecurityConfig {
                 .formLogin(login -> login
                         .loginPage("/")                      // 로그인 폼 위치
                         .loginProcessingUrl("/login")        // 로그인 요청 처리 URL
+                        .loginProcessingUrl("/login")  // ✅ 이게 있어야 POST /login 받음
+                        .usernameParameter("username")   // 명시적으로 설정
+                        .passwordParameter("password")   // 명시적으로 설정
+
                         .defaultSuccessUrl("/", true)        // 성공 시 이동
                         .failureHandler((request, response, exception) -> {
                             // 로그인 실패 시 401 상태코드로 응답 (AJAX 처리 가능)
@@ -46,6 +58,21 @@ public class SecurityConfig {
                 );
 
         return http.build();
+    }
+
+    // ✅ CORS 설정 추가
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true); // ✅ 쿠키 인증 허용
+        //config.setAllowedOriginPatterns(Arrays.asList("http://localhost:8081")); // ✅ 포트까지 명시
+        config.setAllowedOrigins(Arrays.asList("http://localhost:8081"));
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        config.setAllowedHeaders(Arrays.asList("*"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 
     @Bean

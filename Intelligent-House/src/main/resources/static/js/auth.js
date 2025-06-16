@@ -21,20 +21,25 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             try {
-                const response = await fetch('/login', { // /login으로 POST 요청
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' // 폼 데이터 형식으로 전송
-                    },
-                    body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
-                });
+                const response = await
+                fetch('/login', {
+                     method: 'POST',
+                     credentials: 'include',   // ✅ 쿠키 포함
+                     headers: {
+                       'Content-Type': 'application/x-www-form-urlencoded' // ✅ 중요
+                     },
+                     body: new URLSearchParams({
+                         username,
+                         password
+                     })
+                 })
 
                 if (response.status === 401) {
                     showMessage('아이디 또는 비밀번호가 잘못됐습니다.');
 
                 } else if (response.ok) {
                     /*showMessage('로그인에 성공했습니다!');*/
-
+                    sessionStorage.setItem('autoPost', 'true'); // ✅ 다음 페이지 로드 시 1회 팝업
                     if (typeof closePopup === 'function') closePopup('Login-PopUp');
                     window.location.reload();
                 }

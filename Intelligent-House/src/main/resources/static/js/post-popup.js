@@ -12,7 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // ✅ "투고" 버튼 클릭 시 로그인 여부 확인
   if (postBtn) {
     postBtn.addEventListener('click', () => {
-      fetch('/api/user/nickname')
+      fetch('/api/user/nickname', {
+        method: 'GET',
+        credentials: 'include'
+      })
         .then(res => {
           if (!res.ok) throw new Error('Unauthorized');
           return res.json();
@@ -26,11 +29,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // 로그인 후 popup 자동 실행 방지 처리
+  const autoPost = sessionStorage.getItem('autoPost');
+  if (autoPost === 'true') {
+    sessionStorage.removeItem('autoPost');
+    if (postBtn) postBtn.click();
+  }
+
   // ✅ "취소" 버튼 → 팝업 닫기
   if (cancelBtn) {
     cancelBtn.addEventListener('click', () => {
       popupOverlay.style.display = 'none';
-      postForm.reset(); // ← 취소 시도 폼도 초기화
+      postForm.reset();
     });
   }
 
@@ -47,40 +57,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ✅ 등록 버튼 → API POST 요청
+  // ✅ 등록 버튼 → API POST 요청 (PostSubmission용)
   if (submitBtn) {
     submitBtn.addEventListener('click', (e) => {
       e.preventDefault();
 
-      const isUnknownDate = document.querySelector('input[name="dateKnown"]:checked').value === "unknown";
-      const date = isUnknownDate ? null : document.getElementById('post-date').value;
-      const address = document.querySelector('input[placeholder="상세 주소를 입력 해주세요"]').value.trim();
-      const content = document.querySelector('textarea').value.trim();
-      const country = "대한민국";
+      const isUnknownDate = document.querySelector('input[name="dateKnown"]:checked')?.value === "unknown";
+      const dateValue = isUnknownDate ? null : document.getElementById('post-date')?.value;
+      const title = document.getElementById('post-title')?.value.trim();
+      const content = document.getElementById('post-content')?.value.trim();
+      const country = document.getElementById('post-country')?.value.trim();
+      const address = document.getElementById('post-address')?.value.trim();
 
-      if (!address || !content) {
-        openMessagePopup("주소와 내용을 모두 입력해 주세요.");
+      if (!title || !content || !country || !address) {
+        openMessagePopup("제목, 내용, 국가, 주소를 모두 입력해 주세요.");
         return;
       }
 
       const payload = {
         unknownDate: isUnknownDate,
-        date: date,
+        date: dateValue,
         country: country,
         address: address,
+        title: title,
         content: content
       };
 
       fetch('/api/post', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       })
         .then(response => {
           if (response.ok) {
             popupOverlay.style.display = 'none';
-            postForm.reset(); // ✅ 등록 성공 후 폼 초기화
-            openMessagePopup("등록이 완료되었습니다.");
+            postForm.reset();
+            openMessagePopup("게시글이 등록되었습니다.");
           } else if (response.status === 401) {
             openMessagePopup("로그인 후 등록이 가능합니다.");
           } else {

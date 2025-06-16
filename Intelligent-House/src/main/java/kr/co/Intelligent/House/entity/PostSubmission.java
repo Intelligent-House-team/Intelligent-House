@@ -2,6 +2,7 @@ package kr.co.Intelligent.House.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "post_submission")
@@ -14,11 +15,8 @@ public class PostSubmission {
     @Column(name = "writer_username", nullable = false)
     private String writerUsername;
 
-    @Column(name = "date") // ✅ DB의 date 컬럼과 매핑
-    private LocalDate postDate;
-
-    @Column(name = "is_unknown_date", nullable = false)
-    private boolean unknownDate;
+    @Column(nullable = false)
+    private String title;
 
     @Column(nullable = false)
     private String country;
@@ -29,61 +27,46 @@ public class PostSubmission {
     @Column(nullable = false, length = 1000)
     private String content;
 
-    // === Getter & Setter 수동 작성 ===
+    @Column(name = "date")
+    private LocalDate occurredDate;  // 사건 발생일
 
-    public Long getId() {
-        return id;
+    @Column(name = "is_unknown_date", nullable = false)
+    private boolean unknownDate;
+
+    @Column(name = "created_date", nullable = false)
+    private LocalDateTime createdDate;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdDate = LocalDateTime.now();
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    // === Getter & Setter ===
 
-    public String getWriterUsername() {
-        return writerUsername;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setWriterUsername(String writerUsername) {
-        this.writerUsername = writerUsername;
-    }
+    public String getWriterUsername() { return writerUsername; }
+    public void setWriterUsername(String writerUsername) { this.writerUsername = writerUsername; }
 
-    public LocalDate getPostDate() {
-        return postDate;
-    }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public void setPostDate(LocalDate postDate) {
-        this.postDate = postDate;
-    }
+    public String getCountry() { return country; }
+    public void setCountry(String country) { this.country = country; }
 
-    public boolean isUnknownDate() {
-        return unknownDate;
-    }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
-    public void setUnknownDate(boolean unknownDate) {
-        this.unknownDate = unknownDate;
-    }
+    public String getContent() { return content; }
+    public void setContent(String content) { this.content = content; }
 
-    public String getCountry() {
-        return country;
-    }
+    public LocalDate getOccurredDate() { return occurredDate; }
+    public void setOccurredDate(LocalDate occurredDate) { this.occurredDate = occurredDate; }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+    public boolean isUnknownDate() { return unknownDate; }
+    public void setUnknownDate(boolean unknownDate) { this.unknownDate = unknownDate; }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+    public LocalDateTime getCreatedDate() { return createdDate; }
+    public void setCreatedDate(LocalDateTime createdDate) { this.createdDate = createdDate; }
 }
