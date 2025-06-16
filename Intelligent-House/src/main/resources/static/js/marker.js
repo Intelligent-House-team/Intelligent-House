@@ -2,12 +2,13 @@
 if (!window.map) {
     console.error("지도 객체가 초기화되지 않았습니다.");
 } else {
-    // 서울역 마커 생성
+    // 영진전문대학교 마커 생성
     const marker = new kakao.maps.Marker({
-        position: new kakao.maps.LatLng(37.554722, 126.970833),
+        position: new kakao.maps.LatLng(35.8965, 128.6210),
         map: window.map,
-        title: '서울역'
+        title: '영진전문대학교'
     });
+
 
     // 더블 클릭 시 확대
     kakao.maps.event.addListener(window.map, 'dblclick', function(mouseEvent) {
@@ -38,11 +39,33 @@ if (!window.map) {
     });
 
     // 버튼 클릭 이벤트
-    document.getElementById('info-btn').addEventListener('click', () => {
-        const lat = actionBox.dataset.lat;
-        const lng = actionBox.dataset.lng;
-        alert(`위치 정보\n위도: ${lat}\n경도: ${lng}`);
-    });
+  document.getElementById('info-btn').addEventListener('click', () => {
+      const existingSidebar = document.getElementById('information-sidebar');
+
+      // 이미 로드된 경우 보여주기만 함
+      if (existingSidebar) {
+          existingSidebar.classList.remove('hidden');
+          existingSidebar.classList.add('visible');
+          return;
+      }
+
+      // 없으면 fetch로 로드해서 body에 삽입
+      fetch('/sidebar/informationSidebar.html')
+          .then(res => res.text())
+          .then(html => {
+              document.body.insertAdjacentHTML('beforeend', html);
+
+              // 방금 삽입된 사이드바에 visible 클래스 부여
+              const newSidebar = document.getElementById('information-sidebar');
+              if (newSidebar) {
+                  newSidebar.classList.remove('hidden');
+                  newSidebar.classList.add('visible');
+              }
+          })
+          .catch(error => {
+              console.error('informationSidebar.html 로딩 실패:', error);
+          });
+  });
 
     document.getElementById('post-btn').addEventListener('click', () => {
         const lat = actionBox.dataset.lat;

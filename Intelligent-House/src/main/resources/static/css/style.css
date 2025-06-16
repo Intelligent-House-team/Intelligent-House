@@ -99,7 +99,7 @@ html, body {
   font-size: 0.9rem;
 }
 
-/* 팝업 닫기 버튼 (우측 상단 X버튼) */
+/* 팝업 닫기 버튼 (우측 상단 X 버튼) */
 .close-btn {
   position: absolute;
   top: 10px;
@@ -108,9 +108,11 @@ html, body {
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
+  color: black; /* 👈 항상 보이게 텍스트 색상을 지정 */
+  opacity: 1;   /* 👈 혹시 투명도 설정돼 있다면 제거 */
+  z-index: 1002; /* 다른 요소 위에 보이도록 */
 }
 
-/* 하단 푸터 영역 */
 footer {
   height: 60px;
   background: #f1f1f1;
