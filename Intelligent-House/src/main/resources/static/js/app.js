@@ -1,6 +1,6 @@
 // 지도 초기화
 const mapContainer = document.getElementById('map');
-const defaultCenter = new kakao.maps.LatLng(37.554722, 126.970833);
+const defaultCenter = new kakao.maps.LatLng(35.899344, 128.610915); // 대구 복현동 영진전문대학교
 const mapOption = {
     center: defaultCenter,
     level: 3
@@ -16,7 +16,7 @@ if (navigator.geolocation) {
 
         window.map.setCenter(currentPosition);
 
-        // 현재 위치 마커 (선택사항)
+        // 현재 위치 마커
         const geoMarker = new kakao.maps.Marker({
             position: currentPosition,
             map: window.map,
