@@ -117,6 +117,31 @@ function executeGuide2(mapDiv, guideDiv, footer, header, closeHiddenSidebar) {
   closeHiddenSidebar();
 }
 
+// 탭 기능 초기화 함수
+function initializeTabs() {
+  const tabs = document.querySelectorAll('.tab');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // 모든 탭에서 active 클래스 제거
+      tabs.forEach(t => t.classList.remove('active'));
+      // 클릭된 탭에 active 클래스 추가
+      tab.classList.add('active');
+
+      // 모든 탭 콘텐츠 숨기기
+      tabContents.forEach(content => content.classList.add('hidden'));
+
+      // 선택된 탭 콘텐츠 보이기
+      const targetId = tab.getAttribute('data-target');
+      const targetContent = document.getElementById(targetId);
+      if (targetContent) {
+        targetContent.classList.remove('hidden');
+      }
+    });
+  });
+}
+
 // 1. hiddenSidebar.html 불러오기
 fetch('/sidebar/hiddenSidebar.html')
   .then(res => res.text())
@@ -125,14 +150,33 @@ fetch('/sidebar/hiddenSidebar.html')
 
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
-    const sidebarCloseBtn = document.getElementById("closeSidebar");
+    const sidebarCloseBtn = document.getElementById('close-sidebar'); // 변경된 ID
+    const hiddenCloseBtn = document.getElementById("closeSidebar"); // 기존 숨겨진 버튼
 
-    // 히든 사이드 바 닫기 함수 미리 정의
+    // 탭 기능 초기화
+    initializeTabs();
+
+    // 히든 사이드바 열기 함수
+    function openHiddenSidebar() {
+      if (sidebar && overlay) {
+        sidebar.classList.remove('closed');
+        sidebar.classList.add('open');
+        overlay.classList.add('open');
+        if (hiddenCloseBtn) {
+          hiddenCloseBtn.classList.add('open');
+        }
+      }
+    }
+
+    // 히든 사이드바 닫기 함수
     function closeHiddenSidebar() {
-      if (sidebar && overlay && sidebarCloseBtn) {
+      if (sidebar && overlay) {
         sidebar.classList.remove('open');
+        sidebar.classList.add('closed');
         overlay.classList.remove('open');
-        sidebarCloseBtn.classList.remove('open');
+        if (hiddenCloseBtn) {
+          hiddenCloseBtn.classList.remove('open');
+        }
       }
     }
 
@@ -140,24 +184,22 @@ fetch('/sidebar/hiddenSidebar.html')
     findHeaderButtonWithRetry()
       .then(sidebarButton => {
         // 사이드바 열기 이벤트
-        sidebarButton.addEventListener('click', () => {
-          if (sidebar && overlay && sidebarCloseBtn) {
-            sidebar.classList.add('open');
-            overlay.classList.add('open');
-            sidebarCloseBtn.classList.add('open');
-          }
-        });
-
+        sidebarButton.addEventListener('click', openHiddenSidebar);
         console.log('사이드바 버튼 이벤트 등록 완료');
       })
       .catch(error => {
         console.error('헤더 버튼 찾기 실패:', error);
       });
 
-    // 오버레이와 닫기 버튼 이벤트 등록
-    if (overlay && sidebarCloseBtn) {
+    // 오버레이, 닫기 버튼, 숨겨진 닫기 버튼 이벤트 등록
+    if (overlay) {
       overlay.addEventListener('click', closeHiddenSidebar);
+    }
+    if (sidebarCloseBtn) {
       sidebarCloseBtn.addEventListener('click', closeHiddenSidebar);
+    }
+    if (hiddenCloseBtn) {
+      hiddenCloseBtn.addEventListener('click', closeHiddenSidebar);
     }
 
     // 가이드 요소 찾기는 메인 페이지에서만 실행
