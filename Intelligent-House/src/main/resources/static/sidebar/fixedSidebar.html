@@ -1,31 +1,22 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>고정형 사이드바</title>
-    <link rel="stylesheet" href="../css/fixedSidebar.css">
-</head>
-<body>
-<!-- 사이드바 버튼 -->
-<button id="fixed-sidebar-button" class="fixed-sidebar-button">≡</button>
-
-<!-- 사이드바 본체 -->
+<!-- fixedSidebar.html - 브런치A 구조 + 브런치B 컨텐츠 -->
 <div id="fixed-sidebar" class="fixed-sidebar closed">
-    <!-- 1. 닫기 버튼 -->
+    <!-- 1. 닫기 버튼 (사이드바 내부) -->
     <div class="sidebar-header">
         <button id="close-sidebar" class="close-btn">✖</button>
-        <!-- 2. SNS 아이콘 -->
-        <div class="sns-icons">
-            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
-                <img src="youtube.png" alt="YouTube">
-            </a>
-            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-                <img src="instagram.png" alt="Instagram">
-            </a>
-            <a href="https://blog.naver.com" target="_blank" rel="noopener noreferrer">
-                <img src="blog.png" alt="Blog">
-            </a>
-        </div>
+    </div>
+
+    <!-- 2. SNS 아이콘 -->
+    <div class="sns-icons">
+        <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+            <img src="youtube.png" alt="YouTube">
+        </a>
+        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+            <img src="instagram.png" alt="Instagram">
+        </a>
+        <a href="https://blog.naver.com" target="_blank" rel="noopener noreferrer">
+            <img src="blog.png" alt="Blog">
+        </a>
+    </div>
 
     <!-- 3. 주요 메뉴 -->
     <ul class="menu-list">
@@ -54,6 +45,5 @@
     </div>
 </div>
 
-<script src="../js/fixedSidebar.js"></script>
-</body>
-</html>
+<!-- 토글 버튼 (사이드바 외부) -->
+<button id="fixed-sidebar-button" class="fixed-sidebar-button">≡</button>
